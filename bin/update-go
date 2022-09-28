@@ -1,0 +1,22 @@
+#!/bin/bash -eux
+
+command -v jq &> /dev/null || { echo "You need to have jq installed to run this script" >&2; exit 1; }
+
+RELEASE=$(curl https://go.dev/dl/\?mode\=json | jq -r '.[0].files[]| select(.os == "linux") |select(.arch == "amd64").filename')
+VERSION=$(echo $RELEASE | sed 's|.linux-amd64\.tar\.gz||g')
+
+TMPDIR=$(mktemp -d)
+
+if [ $(go version 2> /dev/null | grep $VERSION | wc -l) -eq 0 ];then
+    URL="https://go.dev/dl/$RELEASE"
+    DEST=$TMPDIR/$RELEASE
+    curl -L $URL > $DEST
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $DEST
+fi
+
+(
+    cd $TMPDIR
+    go install golang.org/x/tools/gopls@latest
+)
+
+rm -r $TMPDIR

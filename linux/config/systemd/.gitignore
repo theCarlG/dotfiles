@@ -1,0 +1,5 @@
+*pipewire*
+*jack*
+*wireplumber*
+user/default.target.wants/*
+user/sockets.target.wants/*

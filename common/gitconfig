@@ -1,0 +1,39 @@
+[pull]
+    rebase = true
+[merge]
+    ff = false
+    conflictstyle = diff3
+    tool = difft
+[diff]
+    tool = difftastic
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+    difftool = true
+[rebase]
+    stat = true
+[push]
+    default = tracking
+	autoSetupRemote = true
+[alias]
+    dft = difftool
+    ci=commit
+    st=status -s
+    co=checkout
+    grep=grep -Ii --color
+    find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
+[color]
+    ui = true
+[core]
+    editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[include]
+path = ~/.gitconfig.local

@@ -1,0 +1,17 @@
+#!/bin/bash -eux
+
+command -v jq &> /dev/null || { echo "You need to have jq installed to run this script" >&2; exit 1; }
+
+URL=$(curl -LH "Accept: application/vnd.github+json" https://api.github.com/repos/rust-analyzer/rust-analyzer/releases/latest | jq -r '.assets[]| select(.name == "rust-analyzer-x86_64-unknown-linux-gnu.gz").browser_download_url')
+
+TMPDIR=$(mktemp -d)
+
+DEST=$TMPDIR/rust-analyzer
+
+curl -L $URL > $DEST.gz &&
+gunzip -f $DEST.gz &&
+
+chmod +x $DEST &&
+mv $DEST $HOME/.local/bin/
+
+rm -r $TMPDIR
