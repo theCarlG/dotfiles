@@ -81,7 +81,7 @@ nvim_lsp.rust_analyzer.setup({
                 enable = true,
             },
             checkOnSave = {
-                command = "clippy",
+                command = "cranky",
             },
         }
     }
@@ -138,7 +138,7 @@ nvim_lsp.clangd.setup {
 }
 
 function OrgImports(wait_ms)
-    vim.lsp.buf.formatting_sync()
+    vim.lsp.buf.format()
     local params = vim.lsp.util.make_range_params()
     params.context = {only = {"source.organizeImports"}}
     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
@@ -157,10 +157,10 @@ function OrgImports(wait_ms)
     end
 end
 
-vim.api.nvim_command("au BufWritePre *.rs, lua vim.lsp.buf.formatting_sync()")
-vim.api.nvim_command("au BufWritePre *.js, lua vim.lsp.buf.formatting_sync()")
-vim.api.nvim_command("au BufWritePre *.c, lua vim.lsp.buf.formatting_sync()")
-vim.api.nvim_command("au BufWritePre *.cpp, lua vim.lsp.buf.formatting_sync()")
+vim.api.nvim_command("au BufWritePre *.rs, lua vim.lsp.buf.format()")
+vim.api.nvim_command("au BufWritePre *.js, lua vim.lsp.buf.format()")
+vim.api.nvim_command("au BufWritePre *.c, lua vim.lsp.buf.format()")
+vim.api.nvim_command("au BufWritePre *.cpp, lua vim.lsp.buf.format()")
 vim.api.nvim_command("au BufEnter *.go setlocal noexpandtab")
 vim.api.nvim_command("au BufEnter *.c setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")
 vim.api.nvim_command("au BufEnter *.h setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")

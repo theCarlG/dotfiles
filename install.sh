@@ -133,13 +133,15 @@ bat,bat
 jless,jless
 tokei,tokei
 htmlq,htmlq
-lfs,lfs
+cargo-update,cargo-install-update
+topgrade,topgrade
 cargo-watch,cargo-watch
 cargo-insta,cargo-insta
 cargo-sweep,cargo-sweep
 du-dust,dust
+bottom,btm
 difftastic,difft
-fd-find,find
+fd-find,fd
 EOL
 
 echo ""

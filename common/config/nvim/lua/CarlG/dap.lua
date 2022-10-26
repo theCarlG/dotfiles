@@ -103,44 +103,44 @@ dap.adapters.delve = {
   }
 }
 
-dap.configurations.rust = {
-    {
-        name = 'Launch',
-        type = 'lldb',
-        request = 'launch',
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.loop.cwd() .. '/target/debug/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = true,
-        args = {},
+--dap.configurations.rust = {
+--    {
+--        name = 'Launch',
+--        type = 'lldb',
+--        request = 'launch',
+--        program = function()
+--            return vim.fn.input('Path to executable: ', vim.loop.cwd() .. '/target/debug/', 'file')
+--        end,
+--        cwd = '${workspaceFolder}',
+--        stopOnEntry = true,
+--        args = {},
+--
+--        -- 💀
+--        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+--        --
+--        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+--        --
+--        -- Otherwise you might get the following error:
+--        --
+--        --    Error on launch: Failed to attach to the target process
+--        --
+--        -- But you should be aware of the implications:
+--        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+--        -- runInTerminal = false,
+--    },
+--    {
+--      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+--      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+--      name = "Attach to process",
+--      type = 'lldb',  -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+--      request = 'attach',
+--      pid = require('dap.utils').pick_process,
+--      args = {},
+--    },
+--}
 
-        -- 💀
-        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-        --
-        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-        --
-        -- Otherwise you might get the following error:
-        --
-        --    Error on launch: Failed to attach to the target process
-        --
-        -- But you should be aware of the implications:
-        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-        -- runInTerminal = false,
-    },
-    {
-      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
-      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-      name = "Attach to process",
-      type = 'lldb',  -- Adjust this to match your adapter name (`dap.adapters.<name>`)
-      request = 'attach',
-      pid = require('dap.utils').pick_process,
-      args = {},
-    },
-}
-
-dap.configurations.c = dap.configurations.rust
-dap.configurations.cpp = dap.configurations.rust
+--dap.configurations.c = dap.configurations.rust
+--dap.configurations.cpp = dap.configurations.rust
 
 dap.configurations.go = {
   {
@@ -164,20 +164,8 @@ dap.configurations.go = {
     mode = "test",
     program = "./${relativeFileDirname}"
   },
-  {
-    name= "Debug Launcherbackend",
-    type= "delve",
-    request= "launch",
-    program= "./main.go",
-    args= {
-        "--client-auth",
-        "--metrics-endpoint=:8013",
-        "--urlsign-keyfile=${workspaceFolder}/bazel-bin/clusters/internal-dev-nl-2/k8s/launcherbackend/urlsignkey.dec",
-        "--github-access-token=311b8b6c1d69f2251c448d8e9e0d09babd456951",
-        "--config=${workspaceFolder}/clusters/internal-dev-nl-2/k8s/launcherbackend",
-    },
-  }
 }
+require('dap.ext.vscode').load_launchjs(nil, { lldb = {'rust'}, codelldb = {'rust'} })
 
 
 local api = vim.api
