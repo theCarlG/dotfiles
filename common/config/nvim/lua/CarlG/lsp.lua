@@ -113,7 +113,7 @@ nvim_lsp.gopls.setup({
             codelenses = {
                 tidy = true
             },
-            directoryFilters = {"-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs"},
+            directoryFilters = {"-bazel-bin", "-bazel-src", "-bazel-out", "-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs"},
         },
     },
 })
@@ -138,7 +138,6 @@ nvim_lsp.clangd.setup {
 }
 
 function OrgImports(wait_ms)
-    vim.lsp.buf.format()
     local params = vim.lsp.util.make_range_params()
     params.context = {only = {"source.organizeImports"}}
     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
@@ -156,6 +155,20 @@ function OrgImports(wait_ms)
         end
     end
 end
+function go_org_imports(wait_ms)
+    vim.lsp.buf.formatting()
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+    for cid, res in pairs(result or {}) do
+        for _, r in pairs(res.result or {}) do
+            if r.edit then
+                local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                vim.lsp.util.apply_workspace_edit(r.edit, enc)
+            end
+        end
+    end
+end
 
 vim.api.nvim_command("au BufWritePre *.rs, lua vim.lsp.buf.format()")
 vim.api.nvim_command("au BufWritePre *.js, lua vim.lsp.buf.format()")
@@ -164,5 +177,5 @@ vim.api.nvim_command("au BufWritePre *.cpp, lua vim.lsp.buf.format()")
 vim.api.nvim_command("au BufEnter *.go setlocal noexpandtab")
 vim.api.nvim_command("au BufEnter *.c setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")
 vim.api.nvim_command("au BufEnter *.h setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")
-vim.api.nvim_command("au BufWritePre *.go lua OrgImports(1000)")
+vim.api.nvim_command("au BufWritePre *.go lua go_org_imports(1000)")
 
