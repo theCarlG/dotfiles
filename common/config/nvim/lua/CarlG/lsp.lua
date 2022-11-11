@@ -64,7 +64,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 nvim_lsp.rust_analyzer.setup({
-    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+    --cmd = { "rustup", "run", "stable", "rust-analyzer" },
+    cmd = { "rust-analyzer" },
     capabilities=capabilities,
     on_attach = on_attach,
     settings = {
@@ -81,7 +82,7 @@ nvim_lsp.rust_analyzer.setup({
                 enable = true,
             },
             checkOnSave = {
-                command = "clippy",
+                command = "cranky",
             },
         }
     }
