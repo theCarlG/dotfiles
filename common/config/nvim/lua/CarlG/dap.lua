@@ -77,14 +77,20 @@ local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
+-- dap.adapters.codelldb = {
+--   type = 'server',
+--   port = "${port}",
+--   executable = {
+--     -- CHANGE THIS to your path!
+--     command = '/usr/bin/codelldb',
+--     args = {"--port", "${port}"},
+--   }
+-- }
+
 dap.adapters.codelldb = {
   type = 'server',
-  port = "${port}",
-  executable = {
-    -- CHANGE THIS to your path!
-    command = '/usr/bin/codelldb',
-    args = {"--port", "${port}"},
-  }
+  host = '127.0.0.1',
+  port = 13000
 }
 
 dap.adapters.lldb = {
@@ -103,41 +109,41 @@ dap.adapters.delve = {
   }
 }
 
---dap.configurations.rust = {
---    {
---        name = 'Launch',
---        type = 'lldb',
---        request = 'launch',
---        program = function()
---            return vim.fn.input('Path to executable: ', vim.loop.cwd() .. '/target/debug/', 'file')
---        end,
---        cwd = '${workspaceFolder}',
---        stopOnEntry = true,
---        args = {},
---
---        -- 💀
---        -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
---        --
---        --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
---        --
---        -- Otherwise you might get the following error:
---        --
---        --    Error on launch: Failed to attach to the target process
---        --
---        -- But you should be aware of the implications:
---        -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
---        -- runInTerminal = false,
---    },
---    {
---      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
---      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
---      name = "Attach to process",
---      type = 'lldb',  -- Adjust this to match your adapter name (`dap.adapters.<name>`)
---      request = 'attach',
---      pid = require('dap.utils').pick_process,
---      args = {},
---    },
---}
+dap.configurations.rust = {
+   {
+       name = 'Launch',
+       type = 'codelldb',
+       request = 'launch',
+       program = function()
+           return vim.fn.input('Path to executable: ', vim.loop.cwd() .. '/target/debug/', 'file')
+       end,
+       cwd = '${workspaceFolder}',
+       stopOnEntry = true,
+       args = {},
+
+       -- 💀
+       -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+       --
+       --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+       --
+       -- Otherwise you might get the following error:
+       --
+       --    Error on launch: Failed to attach to the target process
+       --
+       -- But you should be aware of the implications:
+       -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+       -- runInTerminal = false,
+   },
+   {
+     -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+     --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+     name = "Attach to process",
+     type = 'lldb',  -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+     request = 'attach',
+     pid = require('dap.utils').pick_process,
+     args = {},
+   },
+}
 
 --dap.configurations.c = dap.configurations.rust
 --dap.configurations.cpp = dap.configurations.rust
