@@ -50,3 +50,11 @@ au({ 'BufNewFile', 'BufRead' }, {
         vim.bo.filetype = 'json'
     end,
 })
+
+au({ 'BufNewFile', 'BufRead' }, {
+    '*.jsonnet',
+    function()
+        vim.bo.filetype = 'jsonnet'
+    end,
+})
+
