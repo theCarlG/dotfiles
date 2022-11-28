@@ -58,3 +58,11 @@ au({ 'BufNewFile', 'BufRead' }, {
     end,
 })
 
+
+-- GLSL
+au({ 'BufNewFile', 'BufRead' }, {
+    '*.vert,*.tesc,*.tese,*.geom,*.frag,*.comp',
+    function()
+        vim.bo.filetype = 'glsl'
+    end,
+})
