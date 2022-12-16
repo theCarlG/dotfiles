@@ -119,6 +119,8 @@ nvim_lsp.gopls.setup({
     },
 })
 
+nvim_lsp.bufls.setup{}
+
 nvim_lsp.clangd.setup {
     capabilities=capabilities,
     on_attach = on_attach,
