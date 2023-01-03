@@ -30,7 +30,6 @@ require("treesitter-context").setup({
             },
         },
     })
-require'nvim-treesitter.configs'.setup { highlight = { enable = true  }  }
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "c", "lua", "rust", "go", "gomod", "gowork", "dockerfile", "yaml", "json", "regex", "make", "markdown", "proto", "python", "sql", "jsonnet", "glsl" },
