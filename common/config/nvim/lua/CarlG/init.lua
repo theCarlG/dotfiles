@@ -7,7 +7,6 @@ vim.g.vim_markdown_toml_frontmatter = 1
 
 require("CarlG.keymap")
 require("CarlG.plugins")
-require("CarlG.cmp")
 require("CarlG.lsp")
 require("CarlG.dap")
 require("CarlG.treesitter")

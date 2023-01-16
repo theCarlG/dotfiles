@@ -2,6 +2,10 @@ local dap = require("dap")
 local dapui = require("dapui")
 local daptext = require("nvim-dap-virtual-text")
 
+require("mason-nvim-dap").setup({
+    ensure_installed = { "delve", "bash-debug-adapter", "codelldb" }
+})
+
 daptext.setup()
 dapui.setup({
     layouts = {
@@ -71,108 +75,6 @@ end)
 nmap('<leader>de', function()
     dapui.eval()
 end)
-
--- Update this path
-local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.7.4/'
-local codelldb_path = extension_path .. 'adapter/codelldb'
-local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
-
--- dap.adapters.codelldb = {
---   type = 'server',
---   port = "${port}",
---   executable = {
---     -- CHANGE THIS to your path!
---     command = '/usr/bin/codelldb',
---     args = {"--port", "${port}"},
---   }
--- }
-
-dap.adapters.codelldb = {
-  type = 'server',
-  host = '127.0.0.1',
-  port = 13000
-}
-
-dap.adapters.lldb = {
-    type = 'executable',
-    command = '/usr/bin/lldb-vscode',
-    name = 'lldb'
-}
-
-
-dap.adapters.delve = {
-  type = 'server',
-  port = '${port}',
-  executable = {
-    command = 'dlv',
-    args = {'dap', '-l', '127.0.0.1:${port}'},
-  }
-}
-
-dap.configurations.rust = {
-   {
-       name = 'Launch',
-       type = 'codelldb',
-       request = 'launch',
-       program = function()
-           return vim.fn.input('Path to executable: ', vim.loop.cwd() .. '/target/debug/', 'file')
-       end,
-       cwd = '${workspaceFolder}',
-       stopOnEntry = true,
-       args = {},
-
-       -- 💀
-       -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-       --
-       --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-       --
-       -- Otherwise you might get the following error:
-       --
-       --    Error on launch: Failed to attach to the target process
-       --
-       -- But you should be aware of the implications:
-       -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-       -- runInTerminal = false,
-   },
-   {
-     -- If you get an "Operation not permitted" error using this, try disabling YAMA:
-     --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-     name = "Attach to process",
-     type = 'lldb',  -- Adjust this to match your adapter name (`dap.adapters.<name>`)
-     request = 'attach',
-     pid = require('dap.utils').pick_process,
-     args = {},
-   },
-}
-
---dap.configurations.c = dap.configurations.rust
---dap.configurations.cpp = dap.configurations.rust
-
-dap.configurations.go = {
-  {
-    type = "delve",
-    name = "Debug",
-    request = "launch",
-    program = "${file}"
-  },
-  {
-    type = "delve",
-    name = "Debug test", -- configuration for debugging test files
-    request = "launch",
-    mode = "test",
-    program = "${file}"
-  },
-  -- works with go.mod packages and sub packages 
-  {
-    type = "delve",
-    name = "Debug test (go.mod)",
-    request = "launch",
-    mode = "test",
-    program = "./${relativeFileDirname}"
-  },
-}
-require('dap.ext.vscode').load_launchjs(nil, { lldb = {'rust'}, codelldb = {'rust'} })
-
 
 local api = vim.api
 local keymap_restore = {}

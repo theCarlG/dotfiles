@@ -28,19 +28,35 @@ return require('packer').startup(function(use)
         end
     }
 
-    --[[ Neovim LSP Plugins ]] 
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
-    use 'nvim-lua/lsp_extensions.nvim'
-    use 'onsails/lspkind-nvim'
-    use 'simrat39/symbols-outline.nvim'
+    --[[ Debugger ]] 
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
+    use 'theHamsta/nvim-dap-virtual-text'
 
-    --[[ Snippets ]] 
-    use 'L3MON4D3/luasnip'
-    use 'saadparwaiz1/cmp_luasnip'
-    use 'rafamadriz/friendly-snippets'
+    --[[ Neovim LSP Plugins ]] 
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+            {'jayp0521/mason-nvim-dap.nvim'},
+
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-nvim-lua'},
+
+            -- Snippets
+            {'L3MON4D3/LuaSnip'},
+            -- Snippet Collection (Optional)
+            {'rafamadriz/friendly-snippets'},
+        }
+    }
 
     --[[ Treesitter ]] 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -50,7 +66,6 @@ return require('packer').startup(function(use)
     use 'gruvbox-community/gruvbox'
 
     --[[ Utilities ]] 
-    use 'editorconfig/editorconfig-vim'
     use 'tpope/vim-fugitive'
     use {
         "windwp/nvim-autopairs",
@@ -64,11 +79,6 @@ return require('packer').startup(function(use)
     }
     use 'ThePrimeagen/harpoon'
 
-    --[[ Debugger ]] 
-    use 'mfussenegger/nvim-dap'
-    use 'rcarriga/nvim-dap-ui'
-    use 'theHamsta/nvim-dap-virtual-text'
-
     --[[ Lualine ]] 
     use 'nvim-lualine/lualine.nvim'
 
@@ -76,13 +86,6 @@ return require('packer').startup(function(use)
     use { 'nvim-lua/popup.nvim', branch= 'master' }
     use { 'nvim-lua/plenary.nvim', branch= 'master' }
     use { 'nvim-lua/telescope.nvim', branch= 'master' }
-
-    --[[ Notes ]]
-    use 'ixru/nvim-markdown'
-    use 'elzr/vim-json'
-    use 'cespare/vim-toml'
-    use 'ellisonleao/glow.nvim'
-    use 'jghauser/follow-md-links.nvim'
 
     --[ END PLUG ]
     if packer_bootstrap then

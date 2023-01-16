@@ -3,12 +3,48 @@ local keymap = require("CarlG.utils.keymap")
 local nnoremap = keymap.nnoremap
 local vnoremap = keymap.vnoremap
 
-local nvim_lsp = require'lspconfig'
-local util = require 'lspconfig/util'
-local configs = require 'lspconfig/configs'
+require("mason").setup()
 
-local on_attach = function(client, bufnr)
-    local opts = { noremap=true, silent=true, buffer=bufnr }
+local lsp = require("lsp-zero")
+
+lsp.preset("recommended")
+
+lsp.ensure_installed({
+  'gopls',
+  'rust_analyzer',
+  'clangd',
+})
+
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ["<C-Space>"] = cmp.mapping.complete(),
+})
+
+-- disable completion with tab
+-- this helps with copilot setup
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings
+})
+
+lsp.set_preferences({
+    suggest_lsp_servers = false,
+    sign_icons = {
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
+    }
+})
+
+lsp.on_attach(function(client, bufnr)
+    local opts = {buffer = bufnr, remap = false}
     nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -23,51 +59,10 @@ local on_attach = function(client, bufnr)
     nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     --nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-end
+end)
 
-nvim_lsp.please.setup{
-    capabilities=capabilities,
-    on_attach = on_attach,
-}
 
-if not configs.golangcilsp then
-    configs.golangcilsp = {
-        default_config = {
-            cmd = {'golangci-lint-langserver', "-debug"},
-            root_dir = nvim_lsp.util.root_pattern('go.mod','.git'),
-            init_options = {
-                    command = { "golangci-lint", "run", "--enable-all", "--out-format", "json" };
-            }
-        };
-    }
-end
-nvim_lsp.golangci_lint_ls.setup {
-    filetypes = {'go','gomod'}
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
-    }
-}
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true,
-    }
-)
-
-nvim_lsp.rust_analyzer.setup({
-    --cmd = { "rustup", "run", "stable", "rust-analyzer" },
-    cmd = { "rust-analyzer" },
-    capabilities=capabilities,
-    on_attach = on_attach,
+lsp.configure('rust_analyzer', {
     settings = {
         ["rust-analyzer"] = {
             assist = {
@@ -81,24 +76,15 @@ nvim_lsp.rust_analyzer.setup({
             procMacro = {
                 enable = true,
             },
-            checkOnSave = {
+            checkOnSave = true,
+            check = {
                 command = "cranky",
             },
-        }
+        },
     }
 })
 
-nvim_lsp.tsserver.setup{
-    capabilities=capabilities,
-    on_attach = on_attach,
-}
-
-nvim_lsp.gopls.setup({
-    capabilities=capabilities,
-    on_attach = on_attach,
-    cmd = {"gopls", "serve"},
-    filetypes = {"go", "gomod"},
-    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+lsp.configure('gopls', {
     settings = {
         gopls = {
             gofumpt = true,
@@ -119,26 +105,14 @@ nvim_lsp.gopls.setup({
     },
 })
 
-nvim_lsp.bufls.setup{}
 
-nvim_lsp.clangd.setup {
-    capabilities=capabilities,
-    on_attach = on_attach,
-    default_config = {
-    cmd = {
-        "clangd", "--background-index", "--pch-storage=memory", "--clang-tidy", "--suggest-missing-includes"
-    },
-    filetypes = {"c", "cpp", "objc", "objcpp","h","hpp"},
-    root_dir = nvim_lsp.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-        init_option = {
-            fallbackFlags = {
-                clangd = {
-                    fallbackFlags = {"-std=c++17"}
-                }
-            }
-        }
-    }
-}
+lsp.setup()
+
+vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+})
 
 function go_org_imports(wait_ms)
     vim.lsp.buf.formatting()
@@ -155,11 +129,8 @@ function go_org_imports(wait_ms)
     end
 end
 
-vim.api.nvim_command("au BufWritePre *.rs, lua vim.lsp.buf.format()")
-vim.api.nvim_command("au BufWritePre *.js, lua vim.lsp.buf.format()")
-vim.api.nvim_command("au BufWritePre *.c, lua vim.lsp.buf.format()")
-vim.api.nvim_command("au BufWritePre *.cpp, lua vim.lsp.buf.format()")
-vim.api.nvim_command("au BufEnter *.go setlocal noexpandtab")
-vim.api.nvim_command("au BufEnter *.c setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")
-vim.api.nvim_command("au BufEnter *.h setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2")
+vim.api.nvim_command("au BufWritePre *.rs, LspZeroFormat")
+vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
+vim.api.nvim_command("au BufWritePre *.c, LspZeroFormat")
+vim.api.nvim_command("au BufWritePre *.cpp, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.go lua go_org_imports(1000)")
