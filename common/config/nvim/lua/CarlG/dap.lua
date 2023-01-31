@@ -6,27 +6,86 @@ require("mason-nvim-dap").setup({
     ensure_installed = { "delve", "bash-debug-adapter", "codelldb" }
 })
 
+dap.adapters.codelldb = {
+   type = 'server',
+   port = "31337",
+   executable = {
+     command = 'codelldb',
+     args = { "--port", "31337" },
+   }
+}
+dap.configurations.rust = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      vim.fn.jobstart('cargo build')
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+dap.configurations.c = dap.configurations.rust
+dap.configurations.cpp = dap.configurations.rust
+
+dap.adapters.delve = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = 'dlv',
+    args = {'dap', '-l', '127.0.0.1:${port}'},
+  }
+}
+
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+dap.configurations.go = {
+  {
+    type = "delve",
+    name = "Debug",
+    request = "launch",
+    program = "${file}"
+  },
+  {
+    type = "delve",
+    name = "Debug test", -- configuration for debugging test files
+    request = "launch",
+    mode = "test",
+    program = "${file}"
+  },
+  -- works with go.mod packages and sub packages 
+  {
+    type = "delve",
+    name = "Debug test (go.mod)",
+    request = "launch",
+    mode = "test",
+    program = "./${relativeFileDirname}"
+  } 
+}
+
 daptext.setup()
-dapui.setup({
-    layouts = {
-        {
-            elements = {
-                "console",
-            },
-            size = 7,
-            position = "bottom",
-        },
-        {
-            elements = {
-                -- Elements can be strings or table with id and size keys.
-                { id = "scopes", size = 0.25 },
-                "watches",
-            },
-            size = 40,
-            position = "left",
-        }
-    },
-})
+dapui.setup()
+--{
+--    layouts = {
+--        {
+--            elements = {
+--                "console",
+--            },
+--            size = 7,
+--            position = "bottom",
+--        },
+--        {
+--            elements = {
+--                -- Elements can be strings or table with id and size keys.
+--                { id = "scopes", size = 0.25 },
+--                "watches",
+--            },
+--            size = 40,
+--            position = "left",
+--        }
+--    },
+--})
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open(1)
@@ -43,6 +102,7 @@ local keymap = require("CarlG.utils.keymap")
 local nmap = keymap.nmap
 
 nmap('<Up>', function()
+   dapui.toggle(2)
    dap.continue()
 end)
 nmap('<Down>', function()
@@ -103,4 +163,14 @@ dap.listeners.after['event_terminated']['me'] = function()
     )
   end
   keymap_restore = {}
+end
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
 end
