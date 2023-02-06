@@ -30,7 +30,7 @@ dap.configurations.rust = {
 dap.configurations.c = dap.configurations.rust
 dap.configurations.cpp = dap.configurations.rust
 
-dap.adapters.delve = {
+dap.adapters.go = {
   type = 'server',
   port = '${port}',
   executable = {
@@ -38,13 +38,26 @@ dap.adapters.delve = {
     args = {'dap', '-l', '127.0.0.1:${port}'},
   }
 }
+dap.adapters.delve = {
+  type = "server",
+  host = "127.0.0.1",
+  port = 31337,
+}
 
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 dap.configurations.go = {
   {
+    type = 'go',
+    request = 'attach',
+    name = 'Attach to Go Process',
+    mode = 'local',
+    processId = require('dap.utils').pick_process,
+  },
+  {
     type = "delve",
     name = "Debug",
     request = "launch",
+    mode = "exec",
     program = "${file}"
   },
   {
