@@ -127,7 +127,7 @@ while IFS=, read -r name bin; do
     }
 done << EOL
 exa,exa
-rg,rg
+ripgrep,rg
 hyperfine,hyperfine
 bat,bat
 jless,jless
@@ -138,6 +138,7 @@ topgrade,topgrade
 cargo-watch,cargo-watch
 cargo-insta,cargo-insta
 cargo-sweep,cargo-sweep
+cargo-cranky,cargo-cranky
 du-dust,dust
 bottom,btm
 difftastic,difft
