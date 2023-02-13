@@ -33,9 +33,7 @@ end)
 nnoremap("<c-b>", function()
     require('telescope.builtin').buffers()
 end)
-nnoremap('gr', function()
-    require'telescope.builtin'.lsp_references{ shorten_path = true }
-end)
-nnoremap('gy', function()
+nnoremap('gr', '<cmd>Telescope lsp_references<CR>')
+nnoremap('gs', function()
     require'telescope.builtin'.lsp_document_symbols{ shorten_path = true }
 end)

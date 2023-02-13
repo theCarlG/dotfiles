@@ -58,7 +58,7 @@ lsp.on_attach(function(client, bufnr)
     --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    --nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    nnoremap('gr', '<cmd>Telescope lsp_references<CR>', opts)
 end)
 
 
