@@ -105,39 +105,43 @@ lsp.configure('gopls', {
     },
 })
 
-local root_pattern = require('lspconfig.util').root_pattern
-lsp.configure('tailwindcss', {
-    filetypes = {
-        "css",
-        "scss",
-        "sass",
-        "postcss",
-        "html",
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "svelte",
-        "vue",
-        "rust",
-        "rs"
-    },
-    experimental = {
-        classRegex = {
-            [[class="([^"]*)]],
-            "class=\\s+\"([^\"]*)"
-        },
-    },
-    init_options = {  
-        userLanguages = {  
-            eelixir = "html-eex",  
-            eruby = "erb",  
-            rust = "html",  
-        },  
-    },
-    root_dir = root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
-    'postcss.config.ts', 'package.json', 'node_modules'),
-})
+-- local root_pattern = require('lspconfig.util').root_pattern
+-- lsp.configure('tailwindcss', {
+--     filetypes = {
+--         "css",
+--         "scss",
+--         "sass",
+--         "postcss",
+--         "html",
+--         "javascript",
+--         "javascriptreact",
+--         "typescript",
+--         "typescriptreact",
+--         "svelte",
+--         "vue",
+--         "rust",
+--         "rs"
+--     },
+--     experimental = {
+--         classRegex = {
+--             [[class="([^"]*)]],
+--             "class=\\s+\"([^\"]*)"
+--         },
+--     },
+--     init_options = {  
+--         userLanguages = {  
+--             eelixir = "html-eex",  
+--             eruby = "erb",  
+--             rust = "html",  
+--         },  
+--     },
+--     root_dir = root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
+--     'postcss.config.ts', 'package.json', 'node_modules'),
+-- })
+
+lsp.configure('tsserver', {})
+lsp.configure('volar', {})
+lsp.configure('eslint', {})
 
 lsp.setup()
 
@@ -162,6 +166,9 @@ function go_org_imports(wait_ms)
     end
 end
 
+vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
+vim.api.nvim_command("au BufWritePre *.ts, LspZeroFormat")
+vim.api.nvim_command("au BufWritePre *.vue, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.rs, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.c, LspZeroFormat")
