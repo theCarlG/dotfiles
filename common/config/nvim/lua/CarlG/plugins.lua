@@ -18,6 +18,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     --[ START PLUG ]
     --[[ Misc ]] 
+    use 'christoomey/vim-tmux-navigator'
     use 'rhysd/conflict-marker.vim'
     use 'mg979/vim-visual-multi'
     use 'tpope/vim-obsession'
