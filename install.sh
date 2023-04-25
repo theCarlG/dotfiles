@@ -175,12 +175,12 @@ echo ""
 
 COMMON=(
 config/nvim
+config/tmux
 config/alacritty
 config/wezterm
 config/mutt
 gitconfig
 psqlrc
-tmux.conf
 zshrc
 )
 
