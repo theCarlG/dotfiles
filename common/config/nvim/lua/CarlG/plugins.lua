@@ -31,6 +31,7 @@ return require('packer').startup(function(use)
 
     --[[ Debugger ]] 
     use 'mfussenegger/nvim-dap'
+    use 'leoluz/nvim-dap-go'
     use 'rcarriga/nvim-dap-ui'
     use 'theHamsta/nvim-dap-virtual-text'
 
