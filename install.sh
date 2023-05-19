@@ -191,9 +191,10 @@ config/systemd
 zshrc.platform
 )
 
-DARWIN=(
-zshrc.platform
-)
+command -v Hyprland &> /dev/null && LINUX+=(config/hypr)
+command -v swaylock &> /dev/null && LINUX+=(config/swaylock)
+command -v swaync &> /dev/null && LINUX+=(config/swaync)
+command -v waybar &> /dev/null && LINUX+=(config/waybar)
 
 cd $CURRENT_DIR
 
