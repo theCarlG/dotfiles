@@ -100,7 +100,7 @@
     },
     "custom/updates": {
         "exec": "(paru -Qua) | wc -l",
-        "interval": 7200,
+        "interval": 360,
         "format": " {}"
     },
     "custom/weather" : {
