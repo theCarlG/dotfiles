@@ -66,3 +66,11 @@ au({ 'BufNewFile', 'BufRead' }, {
         vim.bo.filetype = 'glsl'
     end,
 })
+
+-- GLSL
+au({ 'BufNewFile', 'BufRead' }, {
+    '*.wgsl',
+    function()
+        vim.bo.filetype = 'wgsl'
+    end,
+})
