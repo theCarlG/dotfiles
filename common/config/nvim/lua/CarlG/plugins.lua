@@ -79,7 +79,6 @@ return require('packer').startup(function(use)
             require('Comment').setup()
         end
     }
-    use 'ThePrimeagen/harpoon'
 
     --[[ Lualine ]] 
     use 'nvim-lualine/lualine.nvim'
