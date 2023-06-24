@@ -72,7 +72,7 @@ lsp.configure('rust_analyzer', {
             cargo = {
                 runBuildScripts = true,
                 loadOutDirsFromCheck = true,
-                features = {"ssr"},
+                --features = {"ssr"},
             },
             procMacro = {
                 enable = true,
