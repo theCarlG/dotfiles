@@ -48,6 +48,8 @@ dap.configurations.cpp = dap.configurations.rust
 dap.configurations.go = {
 }
 
+require('dap.ext.vscode').load_launchjs(nil, {codelldb={'rust'}})
+
 require('dap-go').setup {
     dap_configurations = {
         {
