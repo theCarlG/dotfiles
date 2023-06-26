@@ -43,6 +43,12 @@ lsp.set_preferences({
     }
 })
 
+local keymap = require("CarlG.utils.keymap")
+local nmap = keymap.nmap
+
+local dap = require("dap")
+local dapui = require("dapui")
+
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
     nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -59,6 +65,40 @@ lsp.on_attach(function(client, bufnr)
     nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     nnoremap('gr', '<cmd>Telescope lsp_references<CR>', opts)
+
+    nmap('<Up>', function()
+       dap.continue()
+    end)
+    nmap('<Down>', function()
+       dap.step_over()
+    end)
+    nmap('<Right>', function()
+       dap.step_into()
+    end)
+    nmap('<Left>', function()
+       dap.step_out()
+    end)
+    nmap('<leader>db', function()
+       dap.toggle_breakpoint()
+    end)
+    nmap('<leader>dc', function()
+       dap.run_to_cursor()
+    end)
+    nmap('<leader>dd', function()
+       dapui.toggle(1)
+    end)
+    nmap('<leader>da', function()
+       dapui.toggle(2)
+    end)
+    nmap('<leader>do', function()
+       dap.repl.open()
+    end)
+    nmap('<leader>dx', function()
+       dap.terminate()
+    end)
+    nmap('<leader>de', function()
+        dapui.eval()
+    end)
 end)
 
 
