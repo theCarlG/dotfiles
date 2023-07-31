@@ -188,6 +188,7 @@ BIN=$(ls $DIR/bin)
 
 LINUX=(
 config/systemd
+config/topgrade.toml
 zshrc.platform
 )
 
@@ -216,14 +217,6 @@ if [ "$OS_TYPE" == "Linux" ]; then
     echo "* Linking Linux specific configs"
     for file in ${LINUX[@]}; do
         link_file $DIR/linux/$file $HOME/.$file
-    done
-    echo ""
-fi
-
-if [ "$OS_TYPE" == "Darwin" ]; then
-    echo "* Linking MacOS specific configs"
-    for file in ${DARWIN[@]}; do
-        link_file $DIR/darwin/$file $HOME/.$file
     done
     echo ""
 fi
