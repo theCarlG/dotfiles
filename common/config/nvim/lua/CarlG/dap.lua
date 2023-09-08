@@ -6,18 +6,25 @@ require("mason-nvim-dap").setup({
     ensure_installed = { "delve", "bash-debug-adapter", "codelldb" }
 })
 
-dap.adapters.codelldb = {
-   type = 'server',
-   port = "31337",
-   executable = {
-     command = 'codelldb',
-     args = { "--port", "31337" },
-   }
+local mason_registry = require("mason-registry")
+local codelldb = mason_registry.get_package("codelldb")
+local extension_path = codelldb:get_install_path() .. "/extension/"
+local codelldb_path = extension_path .. "adapter/codelldb"
+local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+
+dap.adapters.lldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- Change this to your path!
+    command =  codelldb_path,
+    args = {"--port", "${port}"},
+  }
 }
 dap.configurations.rust = {
   {
     name = "Launch file",
-    type = "codelldb",
+    type = "lldb",
     request = "launch",
     program = function()
       vim.fn.jobstart('cargo build')
@@ -30,25 +37,7 @@ dap.configurations.rust = {
 dap.configurations.c = dap.configurations.rust
 dap.configurations.cpp = dap.configurations.rust
 
---dap.adapters.go = {
---  type = 'server',
---  port = '${port}',
---  executable = {
---    command = 'dlv',
---    args = {'dap', '-l', '127.0.0.1:${port}'},
---  }
---}
---dap.adapters.delve = {
---  type = "server",
---  host = "127.0.0.1",
---  port = 31337,
---}
---
----- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-dap.configurations.go = {
-}
-
-require('dap.ext.vscode').load_launchjs(nil, {codelldb={'rust'}})
+require('dap.ext.vscode').load_launchjs(nil, {lldb={'rust'}})
 
 require('dap-go').setup {
     dap_configurations = {
