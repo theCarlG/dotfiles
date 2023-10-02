@@ -126,7 +126,7 @@ while IFS=, read -r name bin; do
         echo -e "${C_G}installed$C_NC"
     }
 done << EOL
-exa,exa
+eza,eza
 ripgrep,rg
 hyperfine,hyperfine
 bat,bat
