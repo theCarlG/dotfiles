@@ -16,11 +16,14 @@ lsp.ensure_installed({
 })
 
 local cmp = require('cmp')
+local cmp_action = lsp.cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+  ['<C-b>'] = cmp_action.luasnip_jump_backward(),
   ['<CR>'] = cmp.mapping(function(fallback)
       -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
       if cmp.visible() then
