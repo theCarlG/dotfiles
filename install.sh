@@ -88,16 +88,6 @@ test ! -d  $HOME/.tmux/plugins/tpm && {
     echo -e "${C_G}installed$C_NC"
 }
 
-echo -n "  go: "
-test ! -d /usr/local/go && {
-    echo -e "${C_R}not installed$C_NC"
-    $DIR/bin/update-go
-} || {
-    echo -e "${C_G}installed$C_NC"
-}
-
-echo ""
-
 echo -e "$B* Looking for recommended binaries$C_NC"
 for b in nvim tmux zsh gpg ; do
     echo -n "  $b: "
@@ -145,32 +135,6 @@ difftastic,difft
 fd-find,fd
 EOL
 
-echo ""
-
-echo -e "$B* Looking for go tools$C_NC"
-echo -n "  golangci-lint-langserver: "
-test ! command -v golangci-lint-langserver &> /dev/null && {
-    echo -e "${C_Y}not installed$C_NC"
-    go install github.com/nametake/golangci-lint-langserver@latest
-} || {
-    echo -e "${C_G}installed$C_NC"
-}
-
-echo -n "  golangci-lint: "
-test ! command -v golangci-lint &> /dev/null && {
-    echo -e "${C_Y}not installed$C_NC"
-    go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-} || {
-    echo -e "${C_G}installed$C_NC"
-}
-
-echo -n "  go-lsp: "
-test ! command -v go-lsp &> /dev/null && {
-    echo -e "${C_Y}not installed$C_NC"
-    go install golang.org/x/tools/gopls@latest
-} || {
-    echo -e "${C_G}installed$C_NC"
-}
 echo ""
 
 COMMON=(
