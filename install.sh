@@ -146,6 +146,7 @@ config/mutt
 gitconfig
 psqlrc
 zshrc
+cargo/config.toml
 )
 
 BIN=$(ls $DIR/bin)
