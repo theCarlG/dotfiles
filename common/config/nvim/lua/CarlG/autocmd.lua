@@ -11,7 +11,6 @@ au.group('TermGroup', {
 })
 au("InsertEnter", "setlocal nohlsearch")
 au("TextYankPost", 'silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}');
-au("BufEnter", {"*.log", ":AnsiEsc"});
 
 -- Restore cursor
 au("BufRead", 'call setpos(".", getpos("\'\\""))')
