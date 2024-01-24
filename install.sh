@@ -141,8 +141,8 @@ COMMON=(
 config/nvim
 config/tmux
 config/alacritty
-config/wezterm
 config/mutt
+config/nushell
 gitconfig
 psqlrc
 zshrc

@@ -1,0 +1,28 @@
+config env
+k
+config env
+config nu
+cd code/game-ci-tools/
+tm CI1
+cat .zshrc
+cd
+cat .zshrc
+ll
+config nu
+config env
+nvim
+vim
+EDITOR=vim
+printenv
+echo $env.HOME
+echo "$env.HOME"
+echo $env.HOME + "sdf"
+echo $env.HOME ++ 'sdf'
+echo "($env.HOME)sdf"
+echo $"($env.HOME)sdf"
+echo $"($env.HOME)/.local/bin"
+nvim
+config env
+config ny
+config nu
+chsh -s /bin/zsh
