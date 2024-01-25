@@ -188,7 +188,7 @@ let light_theme = {
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
-    show_banner: true # true or false to enable or disable the welcome banner at startup
+    show_banner: false # true or false to enable or disable the welcome banner at startup
 
     ls: {
         use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -281,7 +281,7 @@ $env.config = {
     shell_integration: false # enables terminal shell integration. Off by default, as some terminals have issues with this.
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
     use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
-    highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
+    #highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -806,4 +806,8 @@ $env.config = {
     ]
 }
 
+<<<<<<< Updated upstream
 source ./config-git.nu
+=======
+source ($nu.default-config-dir | path join 'config' 'git.nu')
+>>>>>>> Stashed changes
