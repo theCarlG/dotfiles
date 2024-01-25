@@ -806,8 +806,4 @@ $env.config = {
     ]
 }
 
-<<<<<<< Updated upstream
-source ./config-git.nu
-=======
 source ($nu.default-config-dir | path join 'config' 'git.nu')
->>>>>>> Stashed changes
