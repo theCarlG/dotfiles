@@ -7,50 +7,6 @@
 # And here is the theme collection
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
-alias grep = rg
-
-match ($nu.os-info | get name) {
-    "windows" => {
-    }
-    _ => {
-
-# function __tmux-sessions() {
-#     local expl
-#     local -a sessions
-#     sessions=( ${${(f)"$(command tmux list-sessions)"}/:[ $'\t']##/:} )
-#     _describe -t sessions 'sessions' sessions "$@"
-# }
-# let tm_completer = {|session|
-#     fish --command $'complete "--do-complete=($spans | str join " ")"'
-#     | $"value(char tab)description(char newline)" + $in
-#     | from tsv --flexible --no-infer
-# }
-        def tm [session?: string] {
-            if $session == null {
-                print -e "usage: tm <session>";
-                return 1;
-            }
-            tmux has -t $session and tmux attach -t $session or tmux new -s $session
-        }
-
-        let sshAgentFilePath = $"/tmp/ssh-agent-($env.USER).nuon"
-
-            if ($sshAgentFilePath | path exists) and ($"/proc/((open $sshAgentFilePath).SSH_AGENT_PID)" | path exists) {
-                load-env (open $sshAgentFilePath)
-            } else {
-                ^ssh-agent -c
-                    | lines
-                    | first 2
-                    | parse "setenv {name} {value};"
-                    | transpose -r
-                    | into record
-                    | save --force $sshAgentFilePath
-                    load-env (open $sshAgentFilePath)
-            }
-    }
-}
-
-
 let dark_theme = {
     # color for nushell primitives
     separator: white
@@ -806,4 +762,52 @@ $env.config = {
     ]
 }
 
-source ($nu.default-config-dir | path join 'config' 'git.nu')
+match ($nu.os-info | get name) {
+    "windows" => {
+    }
+    _ => {
+
+# function __tmux-sessions() {
+#     local expl
+#     local -a sessions
+#     sessions=( ${${(f)"$(command tmux list-sessions)"}/:[ $'\t']##/:} )
+#     _describe -t sessions 'sessions' sessions "$@"
+# }
+# let tm_completer = {|session|
+#     fish --command $'complete "--do-complete=($spans | str join " ")"'
+#     | $"value(char tab)description(char newline)" + $in
+#     | from tsv --flexible --no-infer
+# }
+echo  "not windows"
+        def tm [session?: string] {
+            if $session == null {
+                print -e "usage: tm <session>";
+                return 1;
+            }
+            tmux has -t $session and tmux attach -t $session or tmux new -s $session
+        }
+
+        let sshAgentFilePath = $"/tmp/ssh-agent-($env.USER).nuon"
+
+            if ($sshAgentFilePath | path exists) and ($"/proc/((open $sshAgentFilePath).SSH_AGENT_PID)" | path exists) {
+                load-env (open $sshAgentFilePath)
+            } else {
+                ^ssh-agent -c
+                    | lines
+                    | first 2
+                    | parse "setenv {name} {value};"
+                    | transpose -r
+                    | into record
+                    | save --force $sshAgentFilePath
+                    load-env (open $sshAgentFilePath)
+            }
+    }
+}
+
+
+alias ca = cargo
+alias grep = rg
+
+const config_path = ($nu.default-config-dir | path join 'config')
+source ($config_path | path join 'git.nu')
+source ($config_path | path join 'rsync.nu')
