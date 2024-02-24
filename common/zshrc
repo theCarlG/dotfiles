@@ -112,6 +112,10 @@ source $ZSH/oh-my-zsh.sh
     }
 }
 
+[[ $commands[zoxide] ]] && {
+    eval "$(zoxide init zsh)"
+}
+
 export WASMTIME_HOME="$HOME/.wasmtime"
 
 export PATH="$WASMTIME_HOME/bin:$PATH"
