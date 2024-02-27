@@ -133,6 +133,7 @@ du-dust,dust
 bottom,btm
 difftastic,difft
 fd-find,fd
+zoxide,zoxide
 EOL
 
 echo ""
