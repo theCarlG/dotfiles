@@ -143,6 +143,7 @@ lsp.configure('rust_analyzer', {
 lsp.configure('gopls', {
     settings = {
         gopls = {
+            semanticTokens = true,
             gofumpt = true,
             usePlaceholders = true,
             staticcheck = true,
