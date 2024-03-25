@@ -64,11 +64,17 @@ setopt histignorespace
 
 test -d $HOME/.local/bin && export PATH="$HOME/.local/bin:$PATH"
 test -d $HOME/.cargo && {
-export PATH="$HOME/.cargo/bin:$PATH"
-alias ca='cargo'
+    export PATH="$HOME/.cargo/bin:$PATH"
+    alias ca='cargo'
 
     plugins=($plugins rust)
 }
+
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+test -d $HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && {
+    plugins=($plugins zsh-autosuggestions)
+}
+
 
 test -d /usr/local/go/bin && {
     export GOPATH=$HOME/.go
