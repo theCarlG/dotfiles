@@ -16,7 +16,7 @@ export ZSH_THEME="pygmalion"
 #INTERACTIVE_COMMENTS="true"
 setopt interactivecomments
 # Comment this out to disable weekly auto-update checks
-#DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -33,15 +33,11 @@ export DISABLE_AUTO_TITLE="true"
 zstyle :omz:plugins:ssh-agent lifetime 48h
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-plugins=(pip python systemadmin ssh-agent)
+plugins=(systemadmin ssh-agent)
 
-# Customize to your needs...
-# .zshrc
-#
 autoload -Uz compinit
 compinit
 
-#if command -v tmux >/dev/null 2>&1; then
 tm() {
     [[ -z "$1" ]] && { echo "usage: tm <session>" >&2; return 1; }
     tmux has -t $1 && tmux attach -t $1 || tmux new -s $1
@@ -53,7 +49,6 @@ function __tmux-sessions() {
     sessions=( ${${(f)"$(command tmux list-sessions)"}/:[ $'\t']##/:} )
     _describe -t sessions 'sessions' sessions "$@"
 }
-#fi
 
 compdef __tmux-sessions tm
 
@@ -84,13 +79,12 @@ test -d /usr/local/go/bin && {
     plugins=($plugins golang)
 }
 
-[[ $commands[git] ]] && plugins=($plugins git)
+[[ $commands[git] ]] && plugins=($plugins git git-prompt)
 [[ $commands[docker] ]] && plugins=($plugins docker)
 [[ $commands[docker-compose] ]] && plugins=($plugins docker-compose)
 [[ $commands[rsync] ]] && plugins=($plugins rsync)
 [[ $commands[gpg-agent] ]] && plugins=($plugins gpg-agent)
 [[ $commands[rg] ]] && plugins=($plugins ripgrep)
-[[ $commands[plz] ]] && plugins=($plugins please)
 [[ $commands[kubectl] ]] && plugins=($plugins kubectl)
 
 test -f $HOME/.zshrc.platform  && source $HOME/.zshrc.platform
