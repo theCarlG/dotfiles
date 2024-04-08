@@ -3,8 +3,9 @@ local keymap = require("CarlG.utils.keymap")
 local nnoremap = keymap.nnoremap
 local vnoremap = keymap.vnoremap
 
-require("mason").setup()
 
+
+require("mason").setup()
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
@@ -51,10 +52,10 @@ lsp.setup_nvim_cmp({
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
+        error = "💀",
+        warn  = "󱅧",
+        hint  = "﮸",
+        info  = "",
     }
 })
 
@@ -168,22 +169,10 @@ vim.diagnostic.config({
     virtual_text = true,
     signs = true,
     update_in_insert = true,
+    severity_sort = true,
 })
 
-function go_org_imports(wait_ms)
-    vim.lsp.buf.formatting()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
-    for cid, res in pairs(result or {}) do
-        for _, r in pairs(res.result or {}) do
-            if r.edit then
-                local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-                vim.lsp.util.apply_workspace_edit(r.edit, enc)
-            end
-        end
-    end
-end
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.ts, LspZeroFormat")
@@ -194,4 +183,4 @@ vim.api.nvim_command("au BufWritePre *.c, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.cpp, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.go, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.wgsl, LspZeroFormat")
---vim.api.nvim_command("au BufWritePre *.go lua go_org_imports(1000)")
+

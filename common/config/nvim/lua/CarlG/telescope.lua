@@ -1,4 +1,6 @@
 local telescope = require("telescope")
+local actions = require "telescope.actions"
+
 telescope.setup{
     defaults = {
         file_ignore_patterns = {
@@ -9,6 +11,13 @@ telescope.setup{
             "[.]clangd/.*",
             "[.].*/.*",
         },
+        prompt_prefix = "   ",
+        selection_caret = "  ",
+        entry_prefix = "  ",
+        initial_mode = "insert",
+        selection_strategy = "reset",
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
         set_env = { ['COLORTERM'] = 'truecolor' },
         vim_buffers_everywhere = true,
         grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
@@ -16,9 +25,27 @@ telescope.setup{
         file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
         layout_strategy = "vertical",
         layout_config = {
-            width = 0.70,
-            height = 0.70,
-            preview_cutoff = 40,
+            horizontal = {
+                prompt_position = "top",
+                width = 0.8,
+                preview_width = 0.5,
+            },
+            vertical = {
+                width = 0.5,
+                height = 0.7,
+                preview_cutoff = 1,
+                prompt_position = "top",
+                preview_height = 0.4,
+                mirror = true,
+            },
+        },
+        pickers = {
+            buffers = {
+                mappings = {
+                    n = { ["<C-d>"] = actions.delete_buffer },
+                    i = { ["<C-d>"] = actions.delete_buffer },
+                },
+            },
         },
     }
 }
