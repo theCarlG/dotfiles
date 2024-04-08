@@ -141,6 +141,8 @@ echo ""
 COMMON=(
 config/nvim
 config/tmux
+config/btop
+config/zellij
 config/alacritty
 config/mutt
 config/nushell
