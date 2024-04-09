@@ -29,6 +29,7 @@
     ui = true
 [core]
     editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+    autocrlf = false
 [init]
 	defaultBranch = main
 [filter "lfs"]
