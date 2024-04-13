@@ -2,8 +2,7 @@
 local keymap = require("CarlG.utils.keymap")
 local nnoremap = keymap.nnoremap
 local vnoremap = keymap.vnoremap
-
-
+local nmap = keymap.nmap
 
 require("mason").setup()
 local lsp = require("lsp-zero")
@@ -41,29 +40,39 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 -- disable completion with tab
--- this helps with copilot setup
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+    mapping = cmp_mappings,
+    snippet = {
+        -- REQUIRED by nvim-cmp. get rid of it once we can
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    sources = cmp.config.sources(
+        {
+            { name = 'nvim_lsp' },
+        }, 
+        {
+            { name = 'path' },
+        }
+    ),
+    experimental = {
+        ghost_text = true,
+    },
 })
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
-        error = "💀",
-        warn  = "󱅧",
-        hint  = "﮸",
-        info  = "",
+        error = "E",
+        warn  = "W",
+        hint  = "H",
+        info  = "I",
     }
 })
-
-local keymap = require("CarlG.utils.keymap")
-local nmap = keymap.nmap
-
-local dap = require("dap")
-local dapui = require("dapui")
 
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
@@ -82,41 +91,16 @@ lsp.on_attach(function(client, bufnr)
     nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     nnoremap('gr', '<cmd>Telescope lsp_references<CR>', opts)
 
-    nmap('<Up>', function()
-       dap.continue()
-    end)
-    nmap('<Down>', function()
-       dap.step_over()
-    end)
-    nmap('<Right>', function()
-       dap.step_into()
-    end)
-    nmap('<Left>', function()
-       dap.step_out()
-    end)
-    nmap('<leader>db', function()
-       dap.toggle_breakpoint()
-    end)
-    nmap('<leader>dc', function()
-       dap.run_to_cursor()
-    end)
-    nmap('<leader>dd', function()
-       dapui.toggle(1)
-    end)
-    nmap('<leader>da', function()
-       dapui.toggle(2)
-    end)
-    nmap('<leader>do', function()
-       dap.repl.open()
-    end)
-    nmap('<leader>dx', function()
-       dap.terminate()
-    end)
-    nmap('<leader>de', function()
-        dapui.eval()
-    end)
-end)
+    -- When https://neovim.io/doc/user/lsp.html#lsp-inlay_hint stabilizes
+    -- *and* there's some way to make it only apply to the current line.
+    -- if client.server_capabilities.inlayHintProvider then
+    --     vim.lsp.inlay_hint(ev.buf, true)
+    -- end
 
+    -- None of this semantics tokens business.
+    -- https://www.reddit.com/r/neovim/comments/143efmd/is_it_possible_to_disable_treesitter_completely/
+    -- client.server_capabilities.semanticTokensProvider = nil
+end)
 
 lsp.configure('rust_analyzer', {
     settings = {
@@ -128,8 +112,18 @@ lsp.configure('rust_analyzer', {
             cargo = {
                 runBuildScripts = true,
                 loadOutDirsFromCheck = true,
-                --features = {"ssr"},
+                allFeatures = true,
             },
+            imports = {
+                group = {
+                    enable = false,
+                }
+            },
+            -- completion = {
+            --     postfix = {
+            --         enable = false,
+            --     }
+            -- },
             procMacro = {
                 enable = true,
             },

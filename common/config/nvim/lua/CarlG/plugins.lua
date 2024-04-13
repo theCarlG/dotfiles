@@ -29,18 +29,6 @@ return require('packer').startup(function(use)
         end
     }
 
-    --[[ Debugger ]] 
-    use {'mfussenegger/nvim-dap', 
-        requires = {
-            { "nvim-neotest/nvim-nio" }
-        }
-    }
-
-
-    use 'leoluz/nvim-dap-go'
-    use 'rcarriga/nvim-dap-ui'
-    use 'theHamsta/nvim-dap-virtual-text'
-
     --[[ Neovim LSP Plugins ]] 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -49,22 +37,35 @@ return require('packer').startup(function(use)
             {'neovim/nvim-lspconfig'},
             {'williamboman/mason.nvim'},
             {'williamboman/mason-lspconfig.nvim'},
-            {'jayp0521/mason-nvim-dap.nvim'},
 
             -- Autocompletion
             {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
             {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            {'hrsh7th/cmp-buffer'},
+            {'ray-x/lsp_signature.nvim',
+                config = function()
+                    -- Get signatures (and _only_ signatures) when in argument lists.
+                    require "lsp_signature".setup({
+                        doc_lines = 0,
+                    })
+                end
+            },
 
             -- Snippets
             {'L3MON4D3/LuaSnip'},
-            -- Snippet Collection (Optional)
-            {'rafamadriz/friendly-snippets'},
         }
     }
+
+    use {
+		'rust-lang/rust.vim',
+		ft = { "rust" },
+		config = function()
+			vim.g.rustfmt_autosave = 1
+			vim.g.rustfmt_emit_files = 1
+			vim.g.rustfmt_fail_silently = 0
+			-- vim.g.rust_clip_command = 'wl-copy'
+		end
+	}
 
     --[[ Treesitter ]] 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
