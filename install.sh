@@ -146,6 +146,7 @@ config/zellij
 config/alacritty
 config/mutt
 config/nushell
+config/starship.toml
 gitconfig
 psqlrc
 zshrc

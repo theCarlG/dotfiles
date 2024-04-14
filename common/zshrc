@@ -5,11 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#export ZSH_THEME="gentoo"
-export ZSH_THEME="pygmalion"
-#export ZSH_THEME='lukerandall'
-#export ZSH_THEME='simple'
-#export ZSH_THEME=""
+#export ZSH_THEME="pygmalion"
+export ZSH_THEME=""
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -31,7 +28,6 @@ export DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
-zstyle ':omz:alpha:lib:git' async-prompt no
 zstyle :omz:plugins:ssh-agent lifetime 48h
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
@@ -68,10 +64,17 @@ test -d $HOME/.cargo && {
 }
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-test -d $HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && {
+test -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && {
     plugins=($plugins zsh-autosuggestions)
 }
-
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+test -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && {
+    plugins=($plugins zsh-syntax-highlighting)
+}
+# git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+test -d $HOME/.oh-my-zsh/custom/plugins/zsh-completions && {
+    plugins=($plugins zsh-completions)
+}
 
 test -d /usr/local/go/bin && {
     export GOPATH=$HOME/.go
@@ -81,7 +84,7 @@ test -d /usr/local/go/bin && {
     plugins=($plugins golang)
 }
 
-[[ $commands[git] ]] && plugins=($plugins git git-prompt)
+[[ $commands[git] ]] && plugins=($plugins git)
 [[ $commands[docker] ]] && plugins=($plugins docker)
 [[ $commands[docker-compose] ]] && plugins=($plugins docker-compose)
 [[ $commands[rsync] ]] && plugins=($plugins rsync)
@@ -119,8 +122,14 @@ source $ZSH/oh-my-zsh.sh
     eval "$(zoxide init zsh)"
 }
 
-export WASMTIME_HOME="$HOME/.wasmtime"
+[[ $commands[starship] ]] && {
+    eval "$(starship init zsh)"
+}
 
-export PATH="$WASMTIME_HOME/bin:$PATH"
+
+test -d $HOME/.wasmtime && {
+    export WASMTIME_HOME="$HOME/.wasmtime"
+    export PATH="$WASMTIME_HOME/bin:$PATH"
+}
 
 test -f $HOME/.zshrc.post.local && source $HOME/.zshrc.post.local
