@@ -24,12 +24,14 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment following line if you want to disable autosetting terminal title.
 export DISABLE_AUTO_TITLE="true"
 
+
 # Uncomment following line if you want disable red dots displayed while waiting for completion
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
+zstyle ':omz:alpha:lib:git' async-prompt no
 zstyle :omz:plugins:ssh-agent lifetime 48h
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
