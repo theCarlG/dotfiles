@@ -71,13 +71,14 @@ format = "[ $path/ ]($style)"
 truncate_to_repo = false
 truncation_length = 5
 truncation_symbol = "…/"
+fish_style_pwd_dir_length = 2
 
-#[directory.substitutions]
-#"Documents" = "󰈙"
-#"Downloads" = ""
-#"Music" = "󰝚"
-#"Pictures" = ""
-#"code" = "󰲋"
+[directory.substitutions]
+"~/Documents" = "󰈙 "
+"~/Downloads" = " "
+"~/Music" = "󰝚 "
+"~/Pictures" = " "
+"~/code" = " "
 
 [git_branch]
 #symbol = ""
@@ -89,8 +90,8 @@ style = "fg:color_aqua"
 format = '[[($all_status$ahead_behind)](fg:color_aqua)]($style)'
 
 [nodejs]
-symbol = ""
-style = "fg:color_aqua"
+symbol = ""
+style = "fg:color_green"
 format = '[[ $symbol( $version) ](fg:color_aqua)]($style)'
 
 [c]
@@ -105,7 +106,7 @@ format = '[[ $symbol( $version) ](fg:color_red)]($style)'
 
 [golang]
 symbol = ""
-style = "fg:color_green"
+style = "fg:color_aqua"
 format = '[[ $symbol( $version) ](fg:color_green)]($style)'
 
 [line_break]
