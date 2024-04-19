@@ -129,7 +129,7 @@ lsp.configure('rust_analyzer', {
             },
             checkOnSave = true,
             check = {
-                command = "cranky",
+                command = "clippy",
             },
         },
     }

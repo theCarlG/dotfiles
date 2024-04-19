@@ -811,3 +811,5 @@ alias grep = rg
 const config_path = ($nu.default-config-dir | path join 'config')
 source ($config_path | path join 'git.nu')
 source ($config_path | path join 'rsync.nu')
+
+use ~/.cache/starship/init.nu
