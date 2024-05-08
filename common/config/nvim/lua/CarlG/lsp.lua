@@ -135,6 +135,20 @@ lsp.configure('rust_analyzer', {
     }
 })
 
+lsp.configure('clangd', {
+    settings = {
+        clangd = {
+            cmd = {
+                "clangd",
+                "--background-index",
+                "--suggest-missing-includes",
+                -- "--compile-commands-dir=/home/localuser/test/build",
+            },
+            filetypes = { "c", "cpp", "objc", "objcpp" },
+        }
+    }
+})
+
 lsp.configure('gopls', {
     settings = {
         gopls = {
