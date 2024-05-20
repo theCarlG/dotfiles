@@ -85,21 +85,18 @@ lsp.on_attach(function(client, bufnr)
     nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     nnoremap('gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    nnoremap('K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    -- nnoremap('K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts) -- It's default in nvim 0.10
     --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     nnoremap('gr', '<cmd>Telescope lsp_references<CR>', opts)
+    nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }', opts)
 
     -- When https://neovim.io/doc/user/lsp.html#lsp-inlay_hint stabilizes
     -- *and* there's some way to make it only apply to the current line.
-    -- if client.server_capabilities.inlayHintProvider then
-    --     vim.lsp.inlay_hint(ev.buf, true)
-    -- end
-
-    -- None of this semantics tokens business.
-    -- https://www.reddit.com/r/neovim/comments/143efmd/is_it_possible_to_disable_treesitter_completely/
-    -- client.server_capabilities.semanticTokensProvider = nil
+    if client.server_capabilities.inlayHintProvider then
+        nnoremap("<leader>h", function()vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+    end
 end)
 
 lsp.configure('rust_analyzer', {

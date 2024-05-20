@@ -42,8 +42,8 @@ telescope.setup{
         pickers = {
             buffers = {
                 mappings = {
-                    n = { ["<C-d>"] = actions.delete_buffer },
-                    i = { ["<C-d>"] = actions.delete_buffer },
+                    n = { ["<c-d>"] = actions.delete_buffer },
+                    i = { ["<c-d>"] = actions.delete_buffer },
                 },
             },
         },
