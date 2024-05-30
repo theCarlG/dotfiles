@@ -8,6 +8,7 @@ return {
         top = 0,
         bottom = 0,
     },
+    dpi = 96.0,
     window_frame = {
         -- The font used in the tab bar.
         -- Roboto Bold is the default; this font is bundled
