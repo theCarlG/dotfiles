@@ -69,7 +69,6 @@ return require('packer').startup(function(use)
 
     --[[ Treesitter ]] 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use { 'LhKipp/nvim-nu', run = ':TSInstall nu' }
     use 'nvim-treesitter/nvim-treesitter-context'
 
     --[[ Themes ]]
