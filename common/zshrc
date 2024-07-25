@@ -89,7 +89,6 @@ test -d /usr/local/go/bin && {
 [[ $commands[docker-compose] ]] && plugins=($plugins docker-compose)
 [[ $commands[rsync] ]] && plugins=($plugins rsync)
 [[ $commands[gpg-agent] ]] && plugins=($plugins gpg-agent)
-[[ $commands[rg] ]] && plugins=($plugins ripgrep)
 [[ $commands[kubectl] ]] && plugins=($plugins kubectl)
 
 test -f $HOME/.zshrc.platform  && source $HOME/.zshrc.platform
@@ -108,6 +107,10 @@ source $ZSH/oh-my-zsh.sh
     # speciality views
     alias lS='eza -1 --sort=type'                                                      # one column, just names
     alias lt='eza --tree --level=2 --sort=type'                                        # tree
+}
+
+[[ $commands[ripgrep] ]] && {
+    alias grep='rg'
 }
 
 [[ $commands[bat] ]] && {

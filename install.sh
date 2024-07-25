@@ -150,6 +150,7 @@ config/starship.toml
 gitconfig
 psqlrc
 zshrc
+ripgreprc
 cargo/config.toml
 )
 
