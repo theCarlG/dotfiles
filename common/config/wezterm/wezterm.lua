@@ -61,7 +61,7 @@ return {
     color_schemes = {
         ["gruvbox_material_dark_hard"] = {
             foreground = "#D4BE98",
-            background = "#1a1a1a",
+            background = "#1C1F20",
             cursor_bg = "#D4BE98",
             cursor_border = "#D4BE98",
             cursor_fg = "#1D2021",
@@ -77,7 +77,7 @@ return {
         },
         ["gruvbox_material_light_hard"] = {
             foreground = "#654735",
-            background = "#F9F5D7",
+            background = "#FBF1C6",
             cursor_bg = "#654735",
             cursor_border = "#654735",
             cursor_fg = "#F9F5D7",
