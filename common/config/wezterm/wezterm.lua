@@ -1,4 +1,10 @@
-local wezterm = require 'wezterm';
+local wezterm = require 'wezterm'
+local mux = wezterm.mux
+
+wezterm.on("gui-startup", function()
+    local tab, pane, window = mux.spawn_window(cmd or {})
+    window:gui_window():maximize()
+end)
 
 return {
     enable_wayland = true,
@@ -8,7 +14,7 @@ return {
         top = 0,
         bottom = 0,
     },
-    dpi = 96.0,
+    dpi = 192.0,
     window_frame = {
         -- The font used in the tab bar.
         -- Roboto Bold is the default; this font is bundled
