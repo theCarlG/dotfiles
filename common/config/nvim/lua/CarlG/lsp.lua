@@ -5,15 +5,24 @@ local vnoremap = keymap.vnoremap
 local nmap = keymap.nmap
 
 require("mason").setup()
-local lsp = require("lsp-zero")
+  local lsp = require("lsp-zero")
+  
+  require('mason-lspconfig').setup({
+  -- Replace the language servers listed here 
+  -- with the ones you want to install
+  ensure_installed = {
+    'gopls',
+    'rust_analyzer',
+    'clangd',
+  },
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  },
+})
 
 lsp.preset("recommended")
-
-lsp.ensure_installed({
-  'gopls',
-  'rust_analyzer',
-  'clangd',
-})
 
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()
@@ -43,7 +52,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
-lsp.setup_nvim_cmp({
+cmp.setup({
     mapping = cmp_mappings,
     snippet = {
         -- REQUIRED by nvim-cmp. get rid of it once we can
