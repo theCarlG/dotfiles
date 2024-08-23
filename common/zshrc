@@ -61,6 +61,14 @@ test -d $HOME/.cargo && {
     alias ca='cargo'
 
     plugins=($plugins rust)
+
+    MOLD_PATH=$(which mold)
+    test ! -z "$MOLD_PATH" && {
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang" \
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang" \
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
+    }
 }
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
