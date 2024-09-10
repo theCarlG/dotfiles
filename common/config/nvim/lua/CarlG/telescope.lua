@@ -57,6 +57,9 @@ nnoremap('<c-p>', "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,-
 nnoremap('<c-g>', function()
     require'telescope.builtin'.git_files{}
 end)
+nnoremap("<c-F>", function()
+    require('telescope.builtin').live_grep()
+end)
 nnoremap("<c-b>", function()
     require('telescope.builtin').buffers()
 end)

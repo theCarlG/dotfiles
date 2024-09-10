@@ -1,5 +1,3 @@
--- Credit: https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/after/plugin/colors.lua
-
 vim.g.gruvbox_baby_background_color = "dark"
 vim.g.gruvbox_contrast_dark = 'hard'
 vim.g.gruvbox_contrast_light = 'medium'
@@ -28,7 +26,7 @@ hl("ColorColumn", {
 })
 
 hl("CursorLineNR", {
-    bg = "None"
+    bg = "none"
 })
 
 hl("Normal", {
@@ -43,3 +41,10 @@ hl("netrwDir", {
     fg = "#5eacd3"
 })
 
+
+hl("FloatBorder", {
+    bg = "none"
+})
+hl("NormalFloat", {
+    bg = "none"
+})
