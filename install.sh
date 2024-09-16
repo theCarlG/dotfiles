@@ -126,14 +126,11 @@ htmlq,htmlq
 cargo-update,cargo-install-update
 topgrade,topgrade
 cargo-watch,cargo-watch
-cargo-insta,cargo-insta
 cargo-sweep,cargo-sweep
 cargo-cranky,cargo-cranky
 du-dust,dust
-bottom,btm
 difftastic,difft
 fd-find,fd
-zoxide,zoxide
 EOL
 
 echo ""
