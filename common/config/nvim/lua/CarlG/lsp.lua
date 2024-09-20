@@ -141,6 +141,9 @@ lsp.configure('rust_analyzer', {
                 ignore = { "inactive-code", "unlinked-file" },
                 command = "clippy",
             },
+            rustfmt = {
+                overrideCommand = { "leptosfmt", "-t", "2", "-m", "80", "--stdin", "--rustfmt" },
+            },
         },
     }
 })
