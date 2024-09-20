@@ -24,6 +24,8 @@ require("mason").setup()
 
 lsp.preset("recommended")
 
+
+
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -213,6 +215,11 @@ vim.diagnostic.config{
 require('lspconfig.ui.windows').default_options = {
   border = _border
 }
+
+local lua_lsp = require'lspconfig'.lua_ls
+if lua_lsp then
+   lua_lsp.setup{} 
+end
 
 vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
 vim.api.nvim_command("au BufWritePre *.ts, LspZeroFormat")
