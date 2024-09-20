@@ -5,21 +5,21 @@ local vnoremap = keymap.vnoremap
 local nmap = keymap.nmap
 
 require("mason").setup()
-  local lsp = require("lsp-zero")
-  
-  require('mason-lspconfig').setup({
-  -- Replace the language servers listed here 
-  -- with the ones you want to install
-  ensure_installed = {
-    'gopls',
-    'rust_analyzer',
-    'clangd',
-  },
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({})
-    end,
-  },
+local lsp = require("lsp-zero")
+
+require('mason-lspconfig').setup({
+    -- Replace the language servers listed here 
+    -- with the ones you want to install
+    ensure_installed = {
+        'gopls',
+        'rust_analyzer',
+        'clangd',
+    },
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
+    },
 })
 
 lsp.preset("recommended")
@@ -30,24 +30,24 @@ local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-  ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-  ['<CR>'] = cmp.mapping(function(fallback)
-      -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-      if cmp.visible() then
-          local entry = cmp.get_selected_entry()
-          if not entry then
-              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-              cmp.confirm()
-          end
-      else
-          fallback()
-      end
-  end, {"i","s","c",})
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    ['<CR>'] = cmp.mapping(function(fallback)
+        -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+        if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            if not entry then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+                cmp.confirm()
+            end
+        else
+            fallback()
+        end
+    end, {"i","s","c",})
 })
 
 -- disable completion with tab
@@ -141,9 +141,6 @@ lsp.configure('rust_analyzer', {
                 ignore = { "inactive-code", "unlinked-file" },
                 command = "clippy",
             },
-            rustfmt = {
-                overrideCommand = { "leptosfmt", "-t", "2", "-m", "80", "--stdin", "--rustfmt" },
-            },
         },
     }
 })
@@ -155,7 +152,6 @@ lsp.configure('clangd', {
                 "clangd",
                 "--background-index",
                 "--suggest-missing-includes",
-                -- "--compile-commands-dir=/home/localuser/test/build",
             },
             filetypes = { "c", "cpp", "objc", "objcpp" },
         }
@@ -196,29 +192,29 @@ vim.diagnostic.config({
 local _border = "rounded"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    wrap = true,
-    border = _border
-  }
+    vim.lsp.handlers.hover, {
+        wrap = true,
+        border = _border
+    }
 )
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-    border = _border
-  }
+    vim.lsp.handlers.signature_help, {
+        border = _border
+    }
 )
 
 vim.diagnostic.config{
-  float={border=_border}
+    float={border=_border}
 }
 
 require('lspconfig.ui.windows').default_options = {
-  border = _border
+    border = _border
 }
 
 local lua_lsp = require'lspconfig'.lua_ls
 if lua_lsp then
-   lua_lsp.setup{} 
+    lua_lsp.setup{} 
 end
 
 vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
