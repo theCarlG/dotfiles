@@ -1,5 +1,5 @@
 -- LSP Config
-local keymap = require("CarlG.utils.keymap")
+local keymap = require("utils.keymap")
 local nnoremap = keymap.nnoremap
 
 require("mason").setup()

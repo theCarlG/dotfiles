@@ -1,8 +1,0 @@
-require("CarlG.keymap")
-require("CarlG.plugins")
-require("CarlG.lsp")
-require("CarlG.treesitter")
-require("CarlG.statusline")
-require("CarlG.telescope")
-require("CarlG.color")
-require("CarlG.autocmd")

@@ -1,13 +1,9 @@
-local au = require('CarlG.utils.au')
-
-au.group('PackerGroup', {
-    { 'BufWritePost', 'plugins.lua', 'source <afile> | PackerCompile' },
-})
+local au = require('utils.au')
 
 au.group('TermGroup', {
-   { "TermOpen", "*", "tnoremap <buffer> <Esc> <c-\\><c-n>" },
-   { "TermOpen", "*", "startinsert" },
-   { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" };
+    { "TermOpen", "*", "tnoremap <buffer> <Esc> <c-\\><c-n>" },
+    { "TermOpen", "*", "startinsert" },
+    { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" },
 })
 au("InsertEnter", "setlocal nohlsearch")
 au("TextYankPost", 'silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}');

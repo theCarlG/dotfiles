@@ -1,7 +1,7 @@
 local telescope = require("telescope")
 local actions = require "telescope.actions"
 
-telescope.setup{
+telescope.setup {
     defaults = {
         file_ignore_patterns = {
             "node_modules/.*",
@@ -20,9 +20,9 @@ telescope.setup{
         layout_strategy = "vertical",
         set_env = { ['COLORTERM'] = 'truecolor' },
         vim_buffers_everywhere = true,
-        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require 'telescope.previewers'.vim_buffer_vimgrep.new,
+        qflist_previewer = require 'telescope.previewers'.vim_buffer_qflist.new,
+        file_previewer = require 'telescope.previewers'.vim_buffer_cat.new,
         layout_strategy = "vertical",
         layout_config = {
             horizontal = {
@@ -50,12 +50,12 @@ telescope.setup{
     }
 }
 
-local keymap = require("CarlG.utils.keymap")
+local keymap = require("utils.keymap")
 local nnoremap = keymap.nnoremap
 
 nnoremap('<c-p>', "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>")
 nnoremap('<c-g>', function()
-    require'telescope.builtin'.git_files{}
+    require 'telescope.builtin'.git_files {}
 end)
 nnoremap("<c-F>", function()
     require('telescope.builtin').live_grep()
@@ -65,5 +65,5 @@ nnoremap("<c-b>", function()
 end)
 nnoremap('gr', '<cmd>Telescope lsp_references<CR>')
 nnoremap('gs', function()
-    require'telescope.builtin'.lsp_document_symbols{ shorten_path = true }
+    require 'telescope.builtin'.lsp_document_symbols { shorten_path = true }
 end)

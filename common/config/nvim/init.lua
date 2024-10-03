@@ -48,7 +48,7 @@ vim.opt.updatetime = 50
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append("c")
 
-vim.opt.colorcolumn="+1"
+vim.opt.colorcolumn = "+1"
 vim.opt.textwidth = 120
 
 vim.g.mapleader = " "
@@ -56,4 +56,9 @@ vim.g.mapleader = " "
 vim.opt.clipboard:append("unnamedplus")
 
 
-require("CarlG")
+require("config.keymap")
+require("config.lazy")
+require("config.telescope")
+require("config.lsp")
+require("config.color")
+require("config.autocmd")

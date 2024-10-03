@@ -1,4 +1,4 @@
-local keymap = require("CarlG.utils.keymap")
+local keymap = require("utils.keymap")
 local map = keymap.map
 local nmap = keymap.nmap
 local noremap = keymap.noremap
