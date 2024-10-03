@@ -1,5 +1,3 @@
---[[VIM PRE-PLUG]] 
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -7,7 +5,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
+            { out,                            "WarningMsg" },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -17,12 +15,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = {
-        --[[ Misc ]] 
-        {'christoomey/vim-tmux-navigator'},
-        {'rhysd/conflict-marker.vim'},
-        {'mg979/vim-visual-multi'},
-        {'tpope/vim-obsession'},
+    spec = {
+        --[[ Misc ]]
+        { 'christoomey/vim-tmux-navigator' },
+        { 'mg979/vim-visual-multi' },
+        {
+            'rmagatti/auto-session',
+            lazy = false,
+            opts = {
+                suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+                -- log_level = 'debug',
+            }
+        },
         {
             'lewis6991/gitsigns.nvim',
             config = function()
@@ -41,34 +45,41 @@ require("lazy").setup({
             branch = 'v4.x',
             lazy = true,
             config = false,
+
+            dependencies = {
+                { 'neovim/nvim-lspconfig' },
+                { 'williamboman/mason-lspconfig.nvim' },
+            },
         },
 
         {
             'hrsh7th/nvim-cmp',
             dependencies = {
-                -- LSP Support
-                {'neovim/nvim-lspconfig'},
-                {'williamboman/mason-lspconfig.nvim'},
-
                 -- Autocompletion
-                {'hrsh7th/cmp-nvim-lsp'},
-                {'hrsh7th/cmp-buffer'},
-                {'hrsh7th/cmp-path'},
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/cmp-buffer' },
+                { 'hrsh7th/cmp-path' },
+                { 'onsails/lspkind.nvim' },
                 -- -- Snippets
-                {'L3MON4D3/LuaSnip'},
-                {'saadparwaiz1/cmp_luasnip'}
+                { 'L3MON4D3/LuaSnip' },
+                { 'saadparwaiz1/cmp_luasnip' }
             }
         },
 
-        --[[ Treesitter ]] 
-        { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-        {'nvim-treesitter/nvim-treesitter-context'},
+        --[[ Treesitter ]]
+        {
+            'nvim-treesitter/nvim-treesitter',
+            run = ':TSUpdate',
+            dependencies = {
+                { 'nvim-treesitter/nvim-treesitter-context' },
+            }
+        },
 
         --[[ Themes ]]
-        {'gruvbox-community/gruvbox'},
+        { 'gruvbox-community/gruvbox' },
 
-        --[[ Utilities ]] 
-        {'tpope/vim-fugitive'},
+        --[[ Utilities ]]
+        { 'tpope/vim-fugitive' },
         {
             "windwp/nvim-autopairs",
             config = function() require("nvim-autopairs").setup {} end
@@ -80,13 +91,13 @@ require("lazy").setup({
             end
         },
 
-        --[[ Lualine ]] 
-        {'nvim-lualine/lualine.nvim'},
+        --[[ Lualine ]]
+        { 'nvim-lualine/lualine.nvim' },
 
-        --[[ Telescope ]] 
-        { 'nvim-lua/popup.nvim', branch= 'master' },
-        { 'nvim-lua/plenary.nvim', branch= 'master' },
-        { 'nvim-lua/telescope.nvim', branch= 'master' },
+        --[[ Telescope ]]
+        { 'nvim-lua/popup.nvim',      branch = 'master' },
+        { 'nvim-lua/plenary.nvim',    branch = 'master' },
+        { 'nvim-lua/telescope.nvim',  branch = 'master' },
     },
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
