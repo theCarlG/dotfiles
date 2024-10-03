@@ -32,6 +32,7 @@ return require('packer').startup(function(use)
     --[[ Neovim LSP Plugins ]]
     use {
         'VonHeikemen/lsp-zero.nvim',
+        branch = 'main',
         requires = {
             -- LSP Support
             {'neovim/nvim-lspconfig'},
