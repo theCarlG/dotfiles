@@ -1,35 +1,15 @@
 -- LSP Config
 local keymap = require("CarlG.utils.keymap")
 local nnoremap = keymap.nnoremap
-local vnoremap = keymap.vnoremap
-local nmap = keymap.nmap
 
 require("mason").setup()
 local lsp = require("lsp-zero")
 
-require('mason-lspconfig').setup({
-    -- Replace the language servers listed here 
-    -- with the ones you want to install
-    ensure_installed = {
-        'gopls',
-        'rust_analyzer',
-        'clangd',
-    },
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
-    },
-})
-
-lsp.preset("recommended")
-
-
 
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mappings = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
@@ -47,46 +27,48 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
         else
             fallback()
         end
-    end, {"i","s","c",})
+    end, { "i", "s", "c", })
 })
 
 -- disable completion with tab
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
+require('luasnip.loaders.from_vscode').lazy_load()
 cmp.setup({
     mapping = cmp_mappings,
+    sources = {
+        { name = 'path' },                         -- file paths
+        { name = 'nvim_lsp', keyword_length = 3 }, -- from language server
+        { name = 'nvim_lua', keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
+        { name = 'buffer',   keyword_length = 2 }, -- source current buffer
+        { name = 'luasnip',  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
+        { name = 'calc' },                         -- source for math calculation
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     snippet = {
-        -- REQUIRED by nvim-cmp. get rid of it once we can
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
+            require('luasnip').lsp_expand(args.body)
         end,
     },
-    sources = cmp.config.sources(
-        {
-            { name = 'nvim_lsp' },
-        }, 
-        {
-            { name = 'path' },
-        }
-    ),
-    experimental = {
-        ghost_text = true,
+    formatting = {
+        format = require "lspkind".cmp_format({
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            -- can also be a function to dynamically calculate max width such as
+            -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+            ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+        }),
     },
 })
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = "E",
-        warn  = "W",
-        hint  = "H",
-        info  = "I",
-    }
-})
-
-lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+local lsp_attach = function(client, bufnr)
+    lsp.buffer_autoformat()
+    local opts = { buffer = bufnr, remap = false }
     nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -106,80 +88,150 @@ lsp.on_attach(function(client, bufnr)
     -- When https://neovim.io/doc/user/lsp.html#lsp-inlay_hint stabilizes
     -- *and* there's some way to make it only apply to the current line.
     if client.server_capabilities.inlayHintProvider then
-        nnoremap("<leader>h", function()vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+        nnoremap("<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
     end
-end)
+end
 
-lsp.configure('rust_analyzer', {
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "by_self",
-            },
-            cargo = {
-                runBuildScripts = true,
-                loadOutDirsFromCheck = true,
-                allFeatures = true,
-            },
-            imports = {
-                group = {
-                    enable = false,
-                }
-            },
-            -- completion = {
-            --     postfix = {
-            --         enable = false,
-            --     }
-            -- },
-            procMacro = {
-                enable = true,
-            },
-            checkOnSave = true,
-            check = {
-                features = "all",
-                ignore = { "inactive-code", "unlinked-file" },
-                command = "clippy",
-            },
-            rustfmt = {
-                overrideCommand = { "leptosfmt", "-t", "2", "-m", "80", "--stdin", "--rustfmt" },
-            },
-        },
+lsp.extend_lspconfig({
+    sign_text = true,
+    lsp_attach = lsp_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
+})
+
+require('mason-lspconfig').setup({
+    -- Replace the language servers listed here
+    -- with the ones you want to install
+    ensure_installed = {
+        'gopls',
+        'rust_analyzer',
+        'clangd',
+        'lua_ls',
+    },
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
+
+        gopls = function()
+            require('lspconfig').gopls.setup({
+                settings = {
+                    gopls = {
+                        semanticTokens = true,
+                        gofumpt = true,
+                        usePlaceholders = true,
+                        staticcheck = true,
+                        analyses = {
+                            nilness = true,
+                            shadow = true,
+                            unusedparams = true,
+                            unusedwrite = true,
+                            fieldalignment = true
+                        },
+                        codelenses = {
+                            tidy = true
+                        },
+                    },
+                },
+                directoryFilters = { "-bazel-bin", "-bazel-src", "-bazel-out", "-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs" },
+            })
+        end,
+
+        lua_ls = function()
+            require('lspconfig').lua_ls.setup({
+                settings = {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using
+                            -- (most likely LuaJIT in the case of Neovim)
+                            version = 'LuaJIT',
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            globals = {
+                                'vim',
+                                'require'
+                            },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        -- Do not send telemetry data containing a randomized but unique identifier
+                        telemetry = {
+                            enable = false,
+                        },
+                    },
+                },
+            })
+        end,
+
+        clangd = function()
+            require('lspconfig').clangd.setup({
+                settings = {
+                    clangd = {
+                        cmd = {
+                            "clangd",
+                            "--background-index",
+                            "--suggest-missing-includes",
+                        },
+                        filetypes = { "c", "cpp", "objc", "objcpp" },
+                    },
+                },
+            })
+        end,
+
+        rust_analyzer = function()
+            require('lspconfig').rust_analyzer.setup({
+                settings = {
+                    ['rust-analyzer'] = {
+                        add_return_type = {
+                            enable = true
+                        },
+                        cargo = {
+                            runBuildScripts = true,
+                            loadOutDirsFromCheck = true,
+                            allFeatures = true,
+                        },
+                        imports = {
+                            group = {
+                                enable = true,
+                            },
+                            granularity = {
+                                group = "module",
+                            },
+                            prefix = "self",
+                        },
+                        completion = {
+                            fullFunctionSignatures = {
+                                enable = true,
+                            },
+                        },
+                        procMacro = {
+                            enable = true,
+                        },
+                        checkOnSave = true,
+                        check = {
+                            features = "all",
+                            ignore = { "inactive-code", "unlinked-file" },
+                            command = "clippy",
+                        },
+                        rustfmt = {
+                            -- overrideCommand = { "leptosfmt", "-t", "2", "-m", "80", "--stdin", "--rustfmt" },
+                        },
+                    },
+                },
+            })
+        end
     }
 })
 
-lsp.configure('clangd', {
-    settings = {
-        clangd = {
-            cmd = {
-                "clangd",
-                "--background-index",
-                "--suggest-missing-includes",
-            },
-            filetypes = { "c", "cpp", "objc", "objcpp" },
-        }
-    }
-})
-
-lsp.configure('gopls', {
-    settings = {
-        gopls = {
-            semanticTokens = true,
-            gofumpt = true,
-            usePlaceholders = true,
-            staticcheck = true,
-            analyses = {
-                nilness = true,
-                shadow = true,
-                unusedparams = true,
-                unusedwrite = true,
-                fieldalignment = true
-            },
-            codelenses = {
-                tidy = true
-            },
-            directoryFilters = {"-bazel-bin", "-bazel-src", "-bazel-out", "-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs"},
-        },
+lsp.ui({
+    float_border = 'rounded',
+    sign_text = {
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = '»',
     },
 })
 
@@ -207,26 +259,10 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     }
 )
 
-vim.diagnostic.config{
-    float={border=_border}
+vim.diagnostic.config {
+    float = { border = _border }
 }
 
 require('lspconfig.ui.windows').default_options = {
     border = _border
 }
-
-local lua_lsp = require'lspconfig'.lua_ls
-if lua_lsp then
-    lua_lsp.setup{} 
-end
-
-vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.ts, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.vue, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.rs, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.js, LspZeroFormat")
--- vim.api.nvim_command("au BufWritePre *.c, LspZeroFormat")
--- vim.api.nvim_command("au BufWritePre *.cpp, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.go, LspZeroFormat")
-vim.api.nvim_command("au BufWritePre *.wgsl, LspZeroFormat")
-
