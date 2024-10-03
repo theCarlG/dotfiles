@@ -22,14 +22,10 @@ require('mason-lspconfig').setup({
     },
 })
 
-lsp.preset("recommended")
-
-
-
 local cmp = require('cmp')
 local cmp_action = lsp.cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_mappings = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
@@ -54,36 +50,48 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
+require('luasnip.loaders.from_vscode').lazy_load()
 cmp.setup({
     mapping = cmp_mappings,
+    sources = {
+        { name = 'path' },                              -- file paths
+        { name = 'nvim_lsp'},      -- from language server
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     snippet = {
-        -- REQUIRED by nvim-cmp. get rid of it once we can
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
+            require('luasnip').lsp_expand(args.body)
         end,
     },
-    sources = cmp.config.sources(
-        {
-            { name = 'nvim_lsp' },
-        }, 
-        {
-            { name = 'path' },
-        }
-    ),
-    experimental = {
-        ghost_text = true,
+    formatting = {
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+            local menu_icon ={
+                nvim_lsp = 'λ',
+                vsnip = '⋗',
+                luasnip = '⋗',
+                buffer = 'Ω',
+                path = '🖫',
+            }
+            item.menu = menu_icon[entry.source.name]
+            return item
+        end,
     },
 })
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = "E",
-        warn  = "W",
-        hint  = "H",
-        info  = "I",
-    }
+lsp.ui({
+    float_border = 'rounded',
+    sign_text = {
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = '»',
+    },
 })
+
 
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
@@ -113,10 +121,6 @@ end)
 lsp.configure('rust_analyzer', {
     settings = {
         ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "by_self",
-            },
             cargo = {
                 runBuildScripts = true,
                 loadOutDirsFromCheck = true,
@@ -124,14 +128,18 @@ lsp.configure('rust_analyzer', {
             },
             imports = {
                 group = {
-                    enable = false,
-                }
+                    enable = true,
+                },
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
             },
-            -- completion = {
-            --     postfix = {
-            --         enable = false,
-            --     }
-            -- },
+            completion = {
+                fullFunctionSignatures = {
+                    enable = true,
+                },
+            },
             procMacro = {
                 enable = true,
             },
