@@ -55,6 +55,8 @@ vim.g.mapleader = " "
 
 vim.opt.clipboard:append("unnamedplus")
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 
 require("config.keymap")
 require("config.lazy")
