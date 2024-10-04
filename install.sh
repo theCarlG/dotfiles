@@ -125,10 +125,8 @@ tokei,tokei
 htmlq,htmlq
 cargo-update,cargo-install-update
 topgrade,topgrade
-cargo-watch,cargo-watch
 cargo-sweep,cargo-sweep
 cargo-cranky,cargo-cranky
-du-dust,dust
 difftastic,difft
 fd-find,fd
 EOL
@@ -138,8 +136,6 @@ echo ""
 COMMON=(
 config/nvim
 config/tmux
-config/btop
-config/zellij
 config/alacritty
 config/mutt
 config/nushell
@@ -156,13 +152,9 @@ BIN=$(ls $DIR/bin)
 LINUX=(
 config/systemd
 config/topgrade.toml
+config/wezterm
 zshrc.platform
 )
-
-command -v Hyprland &> /dev/null && LINUX+=(config/hypr)
-command -v swaylock &> /dev/null && LINUX+=(config/swaylock)
-command -v swaync &> /dev/null && LINUX+=(config/swaync)
-command -v waybar &> /dev/null && LINUX+=(config/waybar)
 
 cd $CURRENT_DIR
 
