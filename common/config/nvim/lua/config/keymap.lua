@@ -11,7 +11,7 @@ local xnoremap = keymap.xnoremap
 vnoremap('<', '<gv')
 vnoremap('>', '>gv')
 
-xnoremap('<leader>p', '"_dP')
+xnoremap('<leader>p', '"0p')
 
 -- If I need help, I'll ask for it.
 inoremap('<F1>', '<ESC>')
@@ -60,4 +60,3 @@ map('<C-H>', '<C-W>h<C-W>_')
 -- Fast tabs
 map('<S-H>', 'gT')
 map('<S-L>', 'gt')
-
