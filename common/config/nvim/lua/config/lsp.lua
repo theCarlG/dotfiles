@@ -39,11 +39,10 @@ cmp.setup({
     mapping = cmp_mappings,
     sources = {
         { name = 'path' },                         -- file paths
-        { name = 'nvim_lsp', keyword_length = 3 }, -- from language server
+        { name = 'nvim_lsp' },                     -- from language server
         { name = 'nvim_lua', keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
         { name = 'buffer',   keyword_length = 2 }, -- source current buffer
         { name = 'luasnip',  keyword_length = 2 }, -- nvim-cmp source for vim-vsnip
-        { name = 'calc' },                         -- source for math calculation
     },
     window = {
         completion = cmp.config.window.bordered(),
