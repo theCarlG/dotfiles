@@ -79,6 +79,7 @@ fish_style_pwd_dir_length = 2
 "~/Music" = "󰝚 "
 "~/Pictures" = " "
 "~/code" = " "
+"~/Code" = " "
 
 [git_branch]
 #symbol = ""
