@@ -17,7 +17,9 @@ return {
     },
 
     {
-        'hrsh7th/nvim-cmp',
+        --'hrsh7th/nvim-cmp',
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp", -- Otherwise highlighting gets messed up
         dependencies = {
             -- Autocompletion
             { 'hrsh7th/cmp-nvim-lsp' },
