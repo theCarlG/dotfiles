@@ -1,10 +1,51 @@
 local wezterm = require 'wezterm'
+
 local mux = wezterm.mux
 
 wezterm.on("gui-startup", function()
     local tab, pane, window = mux.spawn_window(cmd or {})
     window:gui_window():maximize()
 end)
+
+-- https://alexplescan.com/posts/2024/08/10/wezterm/
+wezterm.on('update-status', function(window)
+    -- Grab the utf8 character for the "powerline" left facing
+    -- solid arrow.
+    local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+
+    -- Grab the current window's configuration, and from it the
+    -- palette (this is the combination of your chosen colour scheme
+    -- including any overrides).
+    local color_scheme = window:effective_config().resolved_palette
+    local bg = color_scheme.background
+    local fg = color_scheme.foreground
+
+    window:set_right_status(wezterm.format({
+        -- First, we draw the arrow...
+        { Background = { Color = 'none' } },
+        { Foreground = { Color = bg } },
+        { Text = SOLID_LEFT_ARROW },
+        -- Then we draw our text
+        { Background = { Color = bg } },
+        { Foreground = { Color = fg } },
+        { Text = ' ' .. wezterm.hostname() .. ' ' },
+    }))
+end)
+
+function get_appearance()
+    -- if wezterm.gui then
+    --     return wezterm.gui.get_appearance()
+    -- end
+    return 'Dark'
+end
+
+function scheme_for_appearance(appearance)
+    if appearance:find('Dark') then
+        return "gruvbox_material_dark_hard"
+    else
+        return "gruvbox_material_light_hard"
+    end
+end
 
 return {
     enable_wayland = true,
@@ -22,42 +63,43 @@ return {
         -- Whatever font is selected here, it will have the
         -- main font setting appended to it to pick up any
         -- fallback fonts you may have used there.
-        font = wezterm.font({family="Noto Sans", weight="Bold"}),
+        font = wezterm.font({ family = "Roboto", weight = "Bold" }),
 
         -- The size of the font in the tab bar.
         -- Default to 10. on Windows but 12.0 on other systems
         font_size = 9.0,
     },
-    hide_tab_bar_if_only_one_tab = true,
-    font = wezterm.font("MonoLisa", {weight="Light", italic=false}),
+    --hide_tab_bar_if_only_one_tab = false,
+    window_decorations = 'RESIZE',
+    font = wezterm.font("MonoLisa", { weight = "Light", italic = false }),
     font_size = 8.0,
-    font_rules= {
+    font_rules = {
         -- Select a fancy italic font for italic text
         {
             italic = true,
-            font = wezterm.font("MonoLisa", {weight="Light", italic=true}),
+            font = wezterm.font("MonoLisa", { weight = "Light", italic = true }),
         },
 
         -- Similarly, a fancy bold+italic font
         {
             italic = true,
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", {weight="Bold", italic=true}),
+            font = wezterm.font("MonoLisa", { weight = "Bold", italic = true }),
         },
 
         -- Make regular bold text a different color to make it stand out even more
         {
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", {weight="Bold", italic=false}),
+            font = wezterm.font("MonoLisa", { weight = "Bold", italic = false }),
         },
 
         -- For half-intensity text, use a lighter weight font
         {
             intensity = "Half",
-            font = wezterm.font("MonoLisa", {weight="Light", italic=false}),
+            font = wezterm.font("MonoLisa", { weight = "Light", italic = false }),
         },
     },
-    color_scheme = "gruvbox_material_dark_hard",
+    color_scheme = scheme_for_appearance(get_appearance()),
     color_schemes = {
         ["gruvbox_material_dark_hard"] = {
             foreground = "#D4BE98",
@@ -65,11 +107,11 @@ return {
             cursor_bg = "#D4BE98",
             cursor_border = "#D4BE98",
             cursor_fg = "#1D2021",
-            selection_bg = "#D4BE98" ,
+            selection_bg = "#D4BE98",
             selection_fg = "#3C3836",
 
-            ansi = {"#1d2021","#ea6962","#a9b665","#d8a657", "#7daea3","#d3869b", "#89b482","#d4be98"},
-            brights = {"#eddeb5","#ea6962","#a9b665","#d8a657", "#7daea3","#d3869b", "#89b482","#d4be98"}
+            ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
+            brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
         },
         ["gruvbox_material_dark_medium"] = {
         },
@@ -81,11 +123,11 @@ return {
             cursor_bg = "#654735",
             cursor_border = "#654735",
             cursor_fg = "#F9F5D7",
-            selection_bg = "#F3EAC7" ,
+            selection_bg = "#F3EAC7",
             selection_fg = "#4F3829",
 
-            ansi = {"#1d2021","#ea6962","#a9b665","#d8a657", "#7daea3","#d3869b", "#89b482","#d4be98"},
-            brights = {"#eddeb5","#ea6962","#a9b665","#d8a657", "#7daea3","#d3869b", "#89b482","#d4be98"}
+            ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
+            brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
         },
         ["gruvbox_material_light_medium"] = {
         },
