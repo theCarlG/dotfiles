@@ -18,6 +18,7 @@ require("lazy").setup({
     spec = {
         { import = "plugins" },
         --[[ Misc ]]
+        { 'OXY2DEV/markview.nvim' },
         { 'christoomey/vim-tmux-navigator' },
         { 'mg979/vim-visual-multi' },
         {
