@@ -103,15 +103,17 @@ return {
     color_schemes = {
         ["gruvbox_material_dark_hard"] = {
             foreground = "#D4BE98",
-            background = "#1C1F20",
+            background = "#1C1C1C",
             cursor_bg = "#D4BE98",
             cursor_border = "#D4BE98",
             cursor_fg = "#1D2021",
             selection_bg = "#D4BE98",
             selection_fg = "#3C3836",
 
-            ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
-            brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
+            ansi = { "#282828", "#cc241d", "#98971a", "#d79921", "#458588", "#b16286", "#689d6a", "#a89984" },
+            --ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
+            --brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
+            brights = { "#928374", "#fb4934", "#b8bb26", "#fabd2f", "#83a598", "#d3869b", "#8ec07c", "#ebdbb2" },
         },
         ["gruvbox_material_dark_medium"] = {
         },
