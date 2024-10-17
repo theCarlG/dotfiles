@@ -88,6 +88,8 @@ test ! -d  $HOME/.tmux/plugins/tpm && {
     echo -e "${C_G}installed$C_NC"
 }
 
+echo ""
+
 echo -e "$B* Looking for recommended binaries$C_NC"
 for b in nvim tmux zsh gpg ; do
     echo -n "  $b: "
@@ -140,6 +142,8 @@ config/alacritty
 config/mutt
 config/nushell
 config/starship.toml
+config/topgrade.toml
+config/wezterm
 gitconfig
 psqlrc
 zshrc
@@ -148,13 +152,6 @@ cargo/config.toml
 )
 
 BIN=$(ls $DIR/bin)
-
-LINUX=(
-config/systemd
-config/topgrade.toml
-config/wezterm
-zshrc.platform
-)
 
 cd $CURRENT_DIR
 
@@ -166,19 +163,11 @@ if [ ! -d $HOME/.config ]; then
     echo ""
 fi
 
-echo "* Linking common files"
+echo "* Linking files"
 for file in ${COMMON[@]}; do
-    link_file $DIR/common/$file $HOME/.$file
+    link_file $DIR/home/$file $HOME/.$file
 done
 echo ""
-
-if [ "$OS_TYPE" == "Linux" ]; then
-    echo "* Linking Linux specific configs"
-    for file in ${LINUX[@]}; do
-        link_file $DIR/linux/$file $HOME/.$file
-    done
-    echo ""
-fi
 
 if [ ! -d $HOME/.local/bin ]; then
     echo "* Creating ~/.local/bin/"
@@ -186,7 +175,7 @@ if [ ! -d $HOME/.local/bin ]; then
     echo ""
 fi
 
-echo "* Linking scripts"
+echo "* Linking bin"
 for file in ${BIN[@]}; do
     link_file $DIR/bin/$file $HOME/.local/bin/$file
 done
@@ -196,6 +185,7 @@ IFS='
 '
 echo "* Looking for broken symlinks in home directory"
 for l in $(find $HOME -maxdepth 3 -type l -exec file {} \; | grep -v 'snap' | grep broken | cut -d\  -f1,6); do
-    echo -e "${C_R}  $l$C_NC"
+    path=$(echo $l | cut -d: -f1)
+    echo -e "${C_R}  rm $path$C_NC"
 done
 unset IFS
