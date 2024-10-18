@@ -119,18 +119,19 @@ while IFS=, read -r name bin; do
     }
 done << EOL
 eza,eza
+starship,starship
 ripgrep,rg
 hyperfine,hyperfine
 bat,bat
 jless,jless
 tokei,tokei
 htmlq,htmlq
+difftastic,difft
+fd-find,fd
 cargo-update,cargo-install-update
 topgrade,topgrade
 cargo-sweep,cargo-sweep
 cargo-cranky,cargo-cranky
-difftastic,difft
-fd-find,fd
 EOL
 
 echo ""
