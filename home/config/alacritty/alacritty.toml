@@ -38,24 +38,20 @@ foreground = "#ebdbb2"
 size = 8
 
 [font.bold]
-#family = "MonoLisa Nerd Font"
-family = "IosevkaTerm Nerd Font"
-style = "Bold"
+family = "MonoLisa Nerd Font"
+#style = "Bold"
 
 [font.bold_italic]
-#family = "MonoLisa Nerd Font"
-family = "IosevkaTerm Nerd Font"
-style = "Bold Italic"
+family = "MonoLisa Nerd Font"
+#style = "Bold Italic"
 
 [font.italic]
-#family = "MonoLisa Nerd Font"
-family = "IosevkaTerm Nerd Font"
-style = "Italic"
+family = "MonoLisa Nerd Font"
+style = "Extra Light Italic"
 
 [font.normal]
-#family = "MonoLisa Nerd Font"
-family = "IosevkaTerm Nerd Font"
-style = "Light"
+family = "MonoLisa Nerd Font"
+style = "Extra Light"
 
 [[hints.enabled]]
 command = "xdg-open"

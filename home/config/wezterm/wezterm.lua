@@ -71,32 +71,32 @@ return {
     },
     --hide_tab_bar_if_only_one_tab = false,
     window_decorations = 'RESIZE',
-    font = wezterm.font("MonoLisa", { weight = "Light", italic = false }),
+    font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = false }),
     font_size = 8.0,
     font_rules = {
         -- Select a fancy italic font for italic text
         {
             italic = true,
-            font = wezterm.font("MonoLisa", { weight = "Light", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = true }),
         },
 
         -- Similarly, a fancy bold+italic font
         {
             italic = true,
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = true }),
         },
 
         -- Make regular bold text a different color to make it stand out even more
         {
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = false }),
         },
 
         -- For half-intensity text, use a lighter weight font
         {
             intensity = "Half",
-            font = wezterm.font("MonoLisa", { weight = "Light", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "ExtraLight", italic = false }),
         },
     },
     color_scheme = scheme_for_appearance(get_appearance()),
