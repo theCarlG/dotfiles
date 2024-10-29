@@ -75,6 +75,7 @@ fish_style_pwd_dir_length = 2
 
 [directory.substitutions]
 "~/Documents" = "󰈙 "
+"~/Notes" = "🗒️"
 "~/Downloads" = " "
 "~/Music" = "󰝚 "
 "~/Pictures" = " "
