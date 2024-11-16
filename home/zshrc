@@ -27,11 +27,16 @@ export DISABLE_AUTO_TITLE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#
-zstyle :omz:plugins:ssh-agent lifetime 48h
-zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-plugins=(systemadmin ssh-agent)
+plugins=(systemadmin)
+
+[[ $commands[yubikey-agent] ]] || {
+    zstyle :omz:plugins:ssh-agent lifetime 128h
+    zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+    plugins=($plugins rust)
+}
+
 
 autoload -Uz compinit
 compinit
