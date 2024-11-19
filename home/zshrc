@@ -34,7 +34,7 @@ plugins=(systemadmin)
     zstyle :omz:plugins:ssh-agent lifetime 128h
     zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-    plugins=($plugins rust)
+    plugins=($plugins ssh-agent)
 }
 
 
