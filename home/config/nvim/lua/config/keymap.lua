@@ -60,3 +60,15 @@ map('<C-H>', '<C-W>h<C-W>_')
 -- Fast tabs
 map('<S-H>', 'gT')
 map('<S-L>', 'gt')
+
+-- Quickfix
+nmap('<M-j>', '<cmd>cnext<CR>')
+nmap('<M-k>', '<cmd>cprev<CR>')
+
+-- Term
+nmap('<leader>st', function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+end)
