@@ -47,7 +47,8 @@ function scheme_for_appearance(appearance)
     end
 end
 
-return {
+local config = {
+    launch_menu = launch_menu,
     enable_wayland = true,
     window_padding = {
         left = 0,
@@ -71,32 +72,34 @@ return {
     },
     --hide_tab_bar_if_only_one_tab = false,
     window_decorations = 'RESIZE',
-    font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = false }),
+    audible_bell = "Disabled",
+    warn_about_missing_glyphs = false,
+    font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = false }),
     font_size = 8.0,
     font_rules = {
         -- Select a fancy italic font for italic text
         {
             italic = true,
-            font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "ExtraLight", italic = true }),
         },
 
         -- Similarly, a fancy bold+italic font
         {
             italic = true,
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = true }),
         },
 
         -- Make regular bold text a different color to make it stand out even more
         {
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = false }),
         },
 
         -- For half-intensity text, use a lighter weight font
         {
             intensity = "Half",
-            font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "ExtraLight", italic = false }),
         },
     },
     color_scheme = scheme_for_appearance(get_appearance()),
@@ -136,4 +139,65 @@ return {
         ["gruvbox_material_light_soft"] = {
         },
     },
+
+    keys = {
+        {
+            key = "-",
+            mods = "CTRL",
+            action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+        },
+        {
+            key = "ö",
+            mods = "CTRL",
+            action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+        },
+        {
+            key = "h",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Left"),
+        },
+        {
+            key = "j",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Down"),
+        },
+        {
+            key = "k",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Up"),
+        },
+        {
+            key = "l",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Right"),
+        },
+        {
+            key = "-",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Right"),
+        },
+    }
 }
+
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+    local launch_menu = {}
+
+    table.insert(launch_menu, {
+        label = "PowerShell",
+        domain = { DomainName = "local" },
+        args = { "powershell.exe", "-nologo" },
+    })
+    table.insert(launch_menu, {
+        label = "Git Bash",
+        domain = { DomainName = "local" },
+        args = {
+            "C:\\Program Files\\Git\\bin\\bash.exe",
+        }
+    })
+
+    config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe" }
+    config.launch_menu = launch_menu
+    config.default_domain = "WSL:Ubuntu"
+end
+
+return config
