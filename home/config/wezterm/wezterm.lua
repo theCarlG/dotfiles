@@ -47,15 +47,8 @@ function scheme_for_appearance(appearance)
     end
 end
 
-wezterm.on('format-window-title', function()
-    local title = '[' .. wezterm.mux.get_active_workspace() .. ']'
-    title = title .. ' ' .. wezterm.mux.get_domain():name()
-    title = title .. ' - $W'
-    -- some logic here
-    return title
-end)
-
 local config = {
+    launch_menu = launch_menu,
     enable_wayland = true,
     window_padding = {
         left = 0,
@@ -80,9 +73,6 @@ local config = {
     window_decorations = 'RESIZE',
     audible_bell = "Disabled",
     warn_about_missing_glyphs = false,
-    freetype_load_target = 'Light',
-    freetype_render_target = 'HorizontalLcd',
-    command_palette_font_size = 9.0,
     font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = false }),
     font_size = 8.0,
     font_rules = {
@@ -202,8 +192,6 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
     config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe" }
     config.launch_menu = launch_menu
     config.default_domain = "WSL:Ubuntu"
-else
-    config.dpi = 192.0
 end
 
 return config
