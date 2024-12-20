@@ -47,7 +47,15 @@ function scheme_for_appearance(appearance)
     end
 end
 
-return {
+wezterm.on('format-window-title', function()
+    local title = '[' .. wezterm.mux.get_active_workspace() .. ']'
+    title = title .. ' ' .. wezterm.mux.get_domain():name()
+    title = title .. ' - $W'
+    -- some logic here
+    return title
+end)
+
+local config = {
     enable_wayland = true,
     window_padding = {
         left = 0,
@@ -55,7 +63,6 @@ return {
         top = 0,
         bottom = 0,
     },
-    dpi = 192.0,
     window_frame = {
         -- The font used in the tab bar.
         -- Roboto Bold is the default; this font is bundled
@@ -71,32 +78,37 @@ return {
     },
     --hide_tab_bar_if_only_one_tab = false,
     window_decorations = 'RESIZE',
-    font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = false }),
+    audible_bell = "Disabled",
+    warn_about_missing_glyphs = false,
+    freetype_load_target = 'Light',
+    freetype_render_target = 'HorizontalLcd',
+    command_palette_font_size = 9.0,
+    font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = false }),
     font_size = 8.0,
     font_rules = {
         -- Select a fancy italic font for italic text
         {
             italic = true,
-            font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "ExtraLight", italic = true }),
         },
 
         -- Similarly, a fancy bold+italic font
         {
             italic = true,
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = true }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = true }),
         },
 
         -- Make regular bold text a different color to make it stand out even more
         {
             intensity = "Bold",
-            font = wezterm.font("MonoLisa", { weight = "Bold", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "Bold", italic = false }),
         },
 
         -- For half-intensity text, use a lighter weight font
         {
             intensity = "Half",
-            font = wezterm.font("MonoLisa", { weight = "ExtraLight", italic = false }),
+            font = wezterm.font("MonoLisa Nerd Font", { weight = "ExtraLight", italic = false }),
         },
     },
     color_scheme = scheme_for_appearance(get_appearance()),
@@ -136,4 +148,67 @@ return {
         ["gruvbox_material_light_soft"] = {
         },
     },
+
+    keys = {
+        {
+            key = "-",
+            mods = "CTRL",
+            action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+        },
+        {
+            key = "ö",
+            mods = "CTRL",
+            action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+        },
+        {
+            key = "h",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Left"),
+        },
+        {
+            key = "j",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Down"),
+        },
+        {
+            key = "k",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Up"),
+        },
+        {
+            key = "l",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Right"),
+        },
+        {
+            key = "-",
+            mods = "CTRL",
+            action = wezterm.action.ActivatePaneDirection("Right"),
+        },
+    }
 }
+
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+    local launch_menu = {}
+
+    table.insert(launch_menu, {
+        label = "PowerShell",
+        domain = { DomainName = "local" },
+        args = { "powershell.exe", "-nologo" },
+    })
+    table.insert(launch_menu, {
+        label = "Git Bash",
+        domain = { DomainName = "local" },
+        args = {
+            "C:\\Program Files\\Git\\bin\\bash.exe",
+        }
+    })
+
+    config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe" }
+    config.launch_menu = launch_menu
+    config.default_domain = "WSL:Ubuntu"
+else
+    config.dpi = 192.0
+end
+
+return config
