@@ -26,7 +26,14 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-            -- keymap = { preset = 'enter' },
+            keymap = { preset = 'enter' },
+            completion = {
+                menu = {
+                    auto_show = function(ctx)
+                        return ctx.mode ~= "cmdline" and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+                    end,
+                },
+            },
 
             appearance = {
                 use_nvim_cmp_as_default = true,
