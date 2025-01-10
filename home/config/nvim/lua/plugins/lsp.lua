@@ -26,13 +26,19 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-            keymap = { preset = 'enter' },
+            keymap = {
+                preset = 'enter',
+                cmdline = {
+                    preset = 'super-tab',
+                    ['<CR>'] = {}
+                }
+            },
             completion = {
                 menu = {
-                    auto_show = function(ctx)
-                        return ctx.mode ~= "cmdline" and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
-                    end,
-                },
+                    auto_show = function(_ctx)
+                        return not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+                    end
+                }
             },
 
             appearance = {
