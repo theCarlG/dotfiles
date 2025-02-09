@@ -1,3 +1,5 @@
+local border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
 return {
     {
         'williamboman/mason.nvim',
@@ -37,8 +39,18 @@ return {
                 menu = {
                     auto_show = function(_ctx)
                         return not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
-                    end
-                }
+                    end,
+                    border = border_chars,
+                },
+
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 0,
+                    window = {
+                        border = border_chars,
+                    },
+                },
+                list = { selection = { preselect = false, auto_insert = true } },
             },
 
             appearance = {
@@ -51,8 +63,12 @@ return {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },
 
+
             -- experimental signature help support
-            signature = { enabled = true }
+            signature = {
+                enabled = true,
+                window = { border = border_chars },
+            },
         },
     },
 }

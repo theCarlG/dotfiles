@@ -17,7 +17,6 @@ telescope.setup {
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
-        layout_strategy = "vertical",
         set_env = { ['COLORTERM'] = 'truecolor' },
         vim_buffers_everywhere = true,
         grep_previewer = require 'telescope.previewers'.vim_buffer_vimgrep.new,
@@ -39,13 +38,9 @@ telescope.setup {
                 mirror = true,
             },
         },
-        pickers = {
-            buffers = {
-                mappings = {
-                    n = { ["<c-d>"] = actions.delete_buffer },
-                    i = { ["<c-d>"] = actions.delete_buffer },
-                },
-            },
+        mappings = {
+            n = { ["<c-d>"] = actions.delete_buffer },
+            i = { ["<c-d>"] = actions.delete_buffer },
         },
     }
 }
