@@ -28,12 +28,14 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-            keymap = {
-                preset = 'enter',
-                cmdline = {
+            cmdline = {
+                keymap = {
                     preset = 'super-tab',
                     ['<CR>'] = {}
                 }
+            },
+            keymap = {
+                preset = 'enter',
             },
             completion = {
                 menu = {
@@ -50,7 +52,7 @@ return {
                         border = border_chars,
                     },
                 },
-                list = { selection = { preselect = false, auto_insert = true } },
+                list = { selection = { preselect = true, auto_insert = true } },
             },
 
             appearance = {

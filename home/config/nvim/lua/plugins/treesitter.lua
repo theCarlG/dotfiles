@@ -3,7 +3,7 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
             -- A list of parser names, or "all"
-            ensure_installed = { "c", "lua", "rust", "go", "gomod", "gowork", "dockerfile", "yaml", "json", "regex", "make", "markdown", "proto", "python", "sql", "jsonnet", "glsl", "toml" },
+            ensure_installed = { "c", "lua", "rust", "dockerfile", "yaml", "json", "regex", "make", "markdown", "proto", "python", "sql", "toml", "erlang" },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
