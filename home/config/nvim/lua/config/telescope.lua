@@ -62,3 +62,6 @@ nnoremap('gr', '<cmd>Telescope lsp_references<CR>')
 nnoremap('gs', function()
     require 'telescope.builtin'.lsp_document_symbols { shorten_path = true }
 end)
+nnoremap('<leader>d', function()
+    require 'telescope.builtin'.diagnostics()
+end)
