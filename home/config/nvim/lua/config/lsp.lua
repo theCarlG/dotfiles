@@ -45,7 +45,6 @@ require('mason-lspconfig').setup({
     ensure_installed = {
         'rust_analyzer',
         'elp',
-        'circleci-yaml-language-server',
         'clangd',
         'lua_ls',
     },
