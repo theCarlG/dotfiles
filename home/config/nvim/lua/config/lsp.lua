@@ -63,7 +63,6 @@ require('mason-lspconfig').setup({
                         staticcheck = true,
                         analyses = {
                             nilness = true,
-                            shadow = true,
                             unusedparams = true,
                             unusedwrite = true,
                         },
