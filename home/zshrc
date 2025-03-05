@@ -69,9 +69,9 @@ test -d $HOME/.cargo && {
 
     MOLD_PATH=$(which mold)
     test ! -z "$MOLD_PATH" && {
-        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang" \
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
-        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang" \
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
     }
 }
@@ -132,10 +132,6 @@ source $ZSH/oh-my-zsh.sh
     function batdiff() {
         git rev-parse --git-dir > /dev/null 2>&1 && git diff --name-only --diff-filter=d | xargs bat --diff
     }
-}
-
-[[ $commands[zoxide] ]] && {
-    eval "$(zoxide init zsh)"
 }
 
 [[ $commands[starship] ]] && {
