@@ -147,15 +147,19 @@ require('mason-lspconfig').setup({
                         },
                         procMacro = {
                             enable = true,
+                            ignored = {
+                                leptos_macro = {
+                                    -- optional: --
+                                    -- "component",
+                                    -- "server",
+                                },
+                            },
                         },
                         checkOnSave = true,
                         check = {
                             features = "all",
                             ignore = { "inactive-code", "unlinked-file" },
                             command = "clippy",
-                        },
-                        rustfmt = {
-                            -- overrideCommand = { "leptosfmt", "-t", "2", "-m", "80", "--stdin", "--rustfmt" },
                         },
                     },
                 },
