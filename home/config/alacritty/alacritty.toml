@@ -30,23 +30,23 @@ background = "#1c1c1c"
 foreground = "#ebdbb2"
 
 [font]
-size = 8
+size = 10 
 
 [font.bold]
-family = "MonoLisa"
+family = "MonoLisa Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "MonoLisa"
+family = "MonoLisa Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "MonoLisa"
-style = "ExtraLight Italic"
+family = "MonoLisa Nerd Font"
+style = "Light Italic"
 
 [font.normal]
-family = "MonoLisa"
-style = "ExtraLight"
+family = "MonoLisa Nerd Font"
+style = "Light"
 
 [[hints.enabled]]
 command = "xdg-open"
