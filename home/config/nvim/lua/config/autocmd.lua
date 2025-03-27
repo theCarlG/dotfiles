@@ -7,6 +7,7 @@ au.group('TermGroup', {
 })
 au("InsertEnter", "setlocal nohlsearch")
 au("TextYankPost", 'silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}');
+--au("OptionSet", "background")
 
 -- Restore cursor
 au("BufRead", 'call setpos(".", getpos("\'\\""))')
@@ -67,5 +68,19 @@ au({ 'BufNewFile', 'BufRead' }, {
     '*.wgsl',
     function()
         vim.bo.filetype = 'wgsl'
+    end,
+})
+
+au({ 'BufNewFile', 'BufRead' }, {
+    'rebar.config',
+    function()
+        vim.bo.filetype = 'erlang'
+    end,
+})
+
+au({ 'BufNewFile', 'BufRead' }, {
+    '*.app.src',
+    function()
+        vim.bo.filetype = 'erlang'
     end,
 })

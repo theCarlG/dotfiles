@@ -18,12 +18,12 @@ local lsp_attach = function(client, bufnr)
     --nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     nnoremap('gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    -- nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    nnoremap('gre', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    nnoremap('gr', '<cmd>Telescope lsp_references<CR>', opts)
-    nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }', opts)
+    -- nnoremap('grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    -- nnoremap('grr', '<cmd>Telescope lsp_references<CR>', opts)
+    nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }<CR>', opts)
 
     -- When https://neovim.io/doc/user/lsp.html#lsp-inlay_hint stabilizes
     -- *and* there's some way to make it only apply to the current line.
@@ -44,7 +44,7 @@ require('mason-lspconfig').setup({
     -- with the ones you want to install
     ensure_installed = {
         'rust_analyzer',
-        'elp',
+        'erlangls',
         'clangd',
         'lua_ls',
     },
@@ -181,7 +181,14 @@ lsp.ui({
 lsp.setup()
 
 vim.diagnostic.config({
-    virtual_text = true,
+    -- Use the default configuration
+    virtual_lines = true,
+
+    -- Alternatively, customize specific options
+    -- virtual_lines = {
+    --     -- Only show virtual line diagnostics for the current cursor line
+    --     current_line = true,
+    -- },
     signs = true,
     update_in_insert = true,
     severity_sort = true,
