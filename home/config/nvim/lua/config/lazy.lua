@@ -39,6 +39,10 @@ require("lazy").setup({
 
         --[[ Themes ]]
         { 'gruvbox-community/gruvbox' },
+        {
+            "f-person/auto-dark-mode.nvim",
+            opts = {}
+        },
 
         --[[ Utilities ]]
         { 'tpope/vim-fugitive' },

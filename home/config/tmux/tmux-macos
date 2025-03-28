@@ -1,0 +1,1 @@
+set-option -g status-right "#[bg=colour237,fg=colour246] #(uptime | sed -E -e 's|^.*load\ average[s]?: ||g' -e 's|, | |g')  ↑ #[bg=colour237,fg=colour239 nobold, nounderscore, noitalics]#[bg=colour239,fg=colour246]#[bg=colour239,fg=colour248,nobold,noitalics,nounderscore] %H:%M:%S #[bg=colour248,fg=colour237] %Y-%m-%d "
