@@ -41,19 +41,19 @@ end
 
 local function scheme_for_appearance(appearance)
     if appearance:find('Dark') then
-        return "gruvbox_material_dark_hard"
+        return "Gruvbox Dark"
     else
-        return "gruvbox_material_light_hard"
+        return "Gruvbox Light"
     end
 end
 
 local config = {
     enable_wayland = true,
     window_padding = {
-        left = 0,
-        right = 0,
-        top = 0,
-        bottom = 0,
+        left = 1,
+        right = 1,
+        top = 1,
+        bottom = 1,
     },
     window_frame = {
         -- The font used in the tab bar.
@@ -66,14 +66,14 @@ local config = {
 
         -- The size of the font in the tab bar.
         -- Default to 10. on Windows but 12.0 on other systems
-        font_size = 10.0,
+        font_size = 12.0,
     },
     --hide_tab_bar_if_only_one_tab = false,
     window_decorations = 'RESIZE',
     audible_bell = "Disabled",
     warn_about_missing_glyphs = false,
-    font = wezterm.font("MonoLisa Nerd Font", { weight = "Light", italic = false }),
-    font_size = 9.0,
+    font = wezterm.font("MonoLisa Nerd Font", { weight = "Regular", italic = false }),
+    font_size = 10.0,
     font_rules = {
         -- Select a fancy italic font for italic text
         {
@@ -102,7 +102,7 @@ local config = {
     },
     color_scheme = scheme_for_appearance(get_appearance()),
     color_schemes = {
-        ["gruvbox_material_dark_hard"] = {
+        ["Gruvbox Dark"] = {
             foreground = "#D4BE98",
             background = "#1C1C1C",
             cursor_bg = "#D4BE98",
@@ -112,29 +112,7 @@ local config = {
             selection_fg = "#3C3836",
 
             ansi = { "#282828", "#cc241d", "#98971a", "#d79921", "#458588", "#b16286", "#689d6a", "#a89984" },
-            --ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
-            --brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
             brights = { "#928374", "#fb4934", "#b8bb26", "#fabd2f", "#83a598", "#d3869b", "#8ec07c", "#ebdbb2" },
-        },
-        ["gruvbox_material_dark_medium"] = {
-        },
-        ["gruvbox_material_dark_soft"] = {
-        },
-        ["gruvbox_material_light_hard"] = {
-            foreground = "#654735",
-            background = "#FBF1C6",
-            cursor_bg = "#654735",
-            cursor_border = "#654735",
-            cursor_fg = "#F9F5D7",
-            selection_bg = "#F3EAC7",
-            selection_fg = "#4F3829",
-
-            ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
-            brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" }
-        },
-        ["gruvbox_material_light_medium"] = {
-        },
-        ["gruvbox_material_light_soft"] = {
         },
     },
 

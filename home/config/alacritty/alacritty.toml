@@ -1,5 +1,5 @@
 [env]
-TERM = "alacritty"
+TERM = "xterm-256color"
 
 [colors]
 draw_bold_text_with_bright_colors = true
@@ -46,7 +46,7 @@ style = "Light Italic"
 
 [font.normal]
 family = "MonoLisa Nerd Font"
-style = "Light"
+style = "Regular"
 
 [[hints.enabled]]
 command = "xdg-open"
