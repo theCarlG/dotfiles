@@ -33,10 +33,10 @@ wezterm.on('update-status', function(window)
 end)
 
 local function get_appearance()
-    -- if wezterm.gui then
-    --     return wezterm.gui.get_appearance()
-    -- end
-    return 'Dark'
+    if wezterm.gui then
+        return wezterm.gui.get_appearance()
+    end
+    -- return 'Dark'
 end
 
 local function scheme_for_appearance(appearance)
