@@ -30,12 +30,12 @@ export DISABLE_AUTO_TITLE="true"
 
 plugins=(systemadmin)
 
-[[ $commands[yubikey-agent] ]] || {
-    zstyle :omz:plugins:ssh-agent lifetime 128h
-    zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent lifetime 128h
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
 
-    plugins=($plugins ssh-agent)
-}
+[[ $commands[ksshaskpass] ]] && zstyle :omz:plugins:ssh-agent helper ksshaskpass
+
+plugins=($plugins ssh-agent)
 
 
 autoload -Uz compinit
