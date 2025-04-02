@@ -53,6 +53,11 @@ require('mason-lspconfig').setup({
             require('lspconfig')[server_name].setup({})
         end,
 
+        erlangls = function()
+            require('lspconfig').erlangls.setup({
+            })
+        end,
+
         gopls = function()
             require('lspconfig').gopls.setup({
                 settings = {
@@ -168,8 +173,10 @@ require('mason-lspconfig').setup({
     }
 })
 
+local _border = "rounded"
+
 lsp.ui({
-    float_border = 'rounded',
+    float_border = _border,
     sign_text = {
         error = '✘',
         warn = '▲',
@@ -194,7 +201,6 @@ vim.diagnostic.config({
     severity_sort = true,
 })
 
-local _border = "rounded"
 vim.o.winborder = _border
 
 vim.diagnostic.config {
