@@ -35,15 +35,16 @@ end)
 local function get_appearance()
     if wezterm.gui then
         return wezterm.gui.get_appearance()
+    else
+        return 'Dark'
     end
-    -- return 'Dark'
 end
 
 local function scheme_for_appearance(appearance)
     if appearance:find('Dark') then
         return "Gruvbox Dark"
     else
-        return "Gruvbox Light"
+        return "Gruvbox Light" -- Built in
     end
 end
 
