@@ -67,8 +67,8 @@ test -d $HOME/.cargo && {
 
     plugins=($plugins rust)
 
-    MOLD_PATH=$(which mold)
-    test ! -z "$MOLD_PATH" && {
+    [[ $commands[mold] ]] && {
+        MOLD_PATH=$(which mold)
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
@@ -104,7 +104,6 @@ test -d /usr/local/go/bin && {
 [[ $commands[gpg-agent] ]] && plugins=($plugins gpg-agent)
 [[ $commands[kubectl] ]] && plugins=($plugins kubectl)
 
-test -f $HOME/.zshrc.platform  && source $HOME/.zshrc.platform
 test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 source $ZSH/oh-my-zsh.sh
