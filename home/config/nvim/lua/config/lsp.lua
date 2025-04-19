@@ -5,6 +5,18 @@ local nnoremap = keymap.nnoremap
 require("mason").setup()
 local lsp = require("lsp-zero")
 
+local function diagnostics()
+    vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+
+    vim.api.nvim_create_autocmd('CursorMoved', {
+        group = vim.api.nvim_create_augroup('line-diagnostics', { clear = true }),
+        callback = function()
+            vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+            return true
+        end,
+    })
+end
+
 local lsp_attach = function(client, bufnr)
     lsp.buffer_autoformat()
     local opts = { buffer = bufnr, remap = false }
@@ -12,8 +24,10 @@ local lsp_attach = function(client, bufnr)
     nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     nnoremap('\'', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
-    nnoremap('[', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
+    -- nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
+    -- nnoremap('[', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
+    nnoremap("å", diagnostics, opts)
+    nnoremap("[", diagnostics, opts)
 
     --nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -188,8 +202,10 @@ lsp.ui({
 lsp.setup()
 
 vim.diagnostic.config({
+    virtual_text = false,
+    underline = true,
     -- Use the default configuration
-    virtual_lines = true,
+    -- virtual_lines = true,
 
     -- Alternatively, customize specific options
     -- virtual_lines = {
@@ -197,7 +213,7 @@ vim.diagnostic.config({
     --     current_line = true,
     -- },
     signs = true,
-    update_in_insert = true,
+    update_in_insert = false,
     severity_sort = true,
 })
 
