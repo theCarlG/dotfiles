@@ -36,7 +36,7 @@ return {
                 completion = { menu = { auto_show = true } },
             },
             keymap = {
-                preset = 'enter',
+                preset = 'default',
             },
             completion = {
                 menu = {
