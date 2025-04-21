@@ -55,14 +55,6 @@ require("lazy").setup({
             opts = {}
         },
 
-        {
-            'cordx56/rustowl',
-            version = '*', -- Latest stable version
-            build = 'cd rustowl && cargo install --path . --locked',
-            lazy = false,  -- This plugin is already lazy
-            opts = {},
-        },
-
         --[[ Lualine ]]
         {
             'nvim-lualine/lualine.nvim',

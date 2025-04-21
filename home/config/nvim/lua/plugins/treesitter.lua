@@ -1,29 +1,32 @@
 return {
     {
-        'nvim-treesitter/nvim-treesitter-context',
-        opts = {
-            -- A list of parser names, or "all"
-            ensure_installed = { "c", "lua", "rust", "dockerfile", "yaml", "json", "regex", "make", "markdown", "proto", "python", "sql", "toml", "erlang" },
-
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
-
-            indent = {
-                enable = true,
-            },
-
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-                use_languagetree = true,
-            },
-        }
-    },
-    {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
+        config = function()
+            -- vim.wo.foldmethod = 'expr'
+            -- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+        end,
         dependencies = {
-            { 'nvim-treesitter/nvim-treesitter-context' },
+            {
+                'nvim-treesitter/nvim-treesitter-context',
+                opts = {
+                    -- A list of parser names, or "all"
+                    ensure_installed = { "c", "lua", "rust", "dockerfile", "yaml", "json", "regex", "make", "markdown", "proto", "python", "sql", "toml", "erlang" },
+
+                    -- Install parsers synchronously (only applied to `ensure_installed`)
+                    sync_install = false,
+
+                    indent = {
+                        enable = true,
+                    },
+
+                    highlight = {
+                        enable = true,
+                        additional_vim_regex_highlighting = false,
+                        use_languagetree = true,
+                    },
+                }
+            },
         },
         opts = {
             enable = true,   -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -55,6 +58,6 @@ return {
                     "else_clause",
                 },
             },
-        }
+        },
     },
 }

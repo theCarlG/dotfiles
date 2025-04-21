@@ -2,8 +2,14 @@
 local keymap = require("utils.keymap")
 local nnoremap = keymap.nnoremap
 
-require("mason").setup()
-local lsp = require("lsp-zero")
+vim.opt.signcolumn = 'yes'
+
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lspconfig_defaults.capabilities,
+    require('blink.cmp').get_lsp_capabilities()
+)
 
 local function diagnostics()
     vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
@@ -17,39 +23,42 @@ local function diagnostics()
     })
 end
 
-local lsp_attach = function(client, bufnr)
-    lsp.buffer_autoformat()
-    local opts = { buffer = bufnr, remap = false }
-    nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    nnoremap('\'', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    -- nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
-    -- nnoremap('[', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
-    nnoremap("å", diagnostics, opts)
-    nnoremap("[", diagnostics, opts)
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        local mode = vim.api.nvim_get_mode().mode
+        local filetype = vim.bo.filetype
+        if vim.bo.modified == true and mode == 'n' and filetype ~= "oil" then
+            vim.cmd('lua vim.lsp.buf.format()')
+        else
+        end
+    end
+})
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
 
-    --nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    nnoremap('gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    -- nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    -- nnoremap('grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    -- nnoremap('grr', '<cmd>Telescope lsp_references<CR>', opts)
-    nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }<CR>', opts)
+        local opts = { buffer = event.buf, remap = false }
+        nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+        nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+        nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+        nnoremap('\'', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+        -- nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
+        -- nnoremap('[', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
+        nnoremap("å", diagnostics, opts)
+        nnoremap("[", diagnostics, opts)
 
-    -- When https://neovim.io/doc/user/lsp.html#lsp-inlay_hint stabilizes
-    -- *and* there's some way to make it only apply to the current line.
-    if client.server_capabilities.inlayHintProvider then
+        --nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+        nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+        nnoremap('gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        -- nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+        --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+        -- nnoremap('grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        -- nnoremap('grr', '<cmd>Telescope lsp_references<CR>', opts)
+        nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }<CR>', opts)
+
         nnoremap("<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
     end
-end
-
-lsp.extend_lspconfig({
-    sign_text = true,
-    lsp_attach = lsp_attach,
-    capabilities = require('blink.cmp').get_lsp_capabilities()
 })
 
 require('mason-lspconfig').setup({
@@ -167,16 +176,19 @@ require('mason-lspconfig').setup({
                         procMacro = {
                             enable = true,
                             ignored = {
-                                leptos_macro = {
+                                ["leptos_macro"] = {
                                     -- optional: --
                                     -- "component",
                                     -- "server",
                                 },
+                                ["async-trait"] = { "async_trait" },
+                                ["napi-derive"] = { "napi" },
+                                ["async-recursion"] = { "async_recursion" },
                             },
                         },
                         checkOnSave = true,
                         check = {
-                            features = "all",
+                            -- features = "all",
                             ignore = { "inactive-code", "unlinked-file" },
                             command = "clippy",
                         },
@@ -189,32 +201,20 @@ require('mason-lspconfig').setup({
 
 local _border = "rounded"
 
-lsp.ui({
-    float_border = _border,
-    sign_text = {
-        error = '✘',
-        warn = '▲',
-        hint = '⚑',
-        info = '»',
-    },
-})
-
-lsp.setup()
 
 vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     underline = true,
-    -- Use the default configuration
-    -- virtual_lines = true,
-
-    -- Alternatively, customize specific options
-    -- virtual_lines = {
-    --     -- Only show virtual line diagnostics for the current cursor line
-    --     current_line = true,
-    -- },
-    signs = true,
-    update_in_insert = false,
-    severity_sort = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '✘',
+            [vim.diagnostic.severity.WARN] = '▲',
+            [vim.diagnostic.severity.INFO] = '⚑',
+            [vim.diagnostic.severity.HINT] = '»',
+        }
+    },
+    update_in_insert = true,
+    severity_sort = false,
 })
 
 vim.o.winborder = _border

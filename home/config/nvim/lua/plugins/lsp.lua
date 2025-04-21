@@ -2,26 +2,48 @@ local border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 return {
     {
-        'williamboman/mason.nvim',
-        lazy = false,
-        config = true,
-    },
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v4.x',
-        lazy = true,
-        config = false,
+        'neovim/nvim-lspconfig',
 
         dependencies = {
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason-lspconfig.nvim' },
+            {
+                'williamboman/mason.nvim',
+                lazy = false,
+                config = function()
+                    require("mason").setup({
+                        ui = {
+                            icons = {
+                                package_installed = "",
+                                package_pending = "",
+                                package_uninstalled = "",
+                            },
+                        }
+                    })
+                end,
+                dependencies = {
+                    { 'williamboman/mason-lspconfig.nvim' },
+                },
+            },
+
+            -- {
+            --     'cordx56/rustowl',
+            --     version = '*', -- Latest stable version
+            --     build = 'cd rustowl && cargo install --path . --locked',
+            --     lazy = false,  -- This plugin is already lazy
+            --     opts = {},
+            --     config = function()
+            --         local lspconfig = require("lspconfig")
+            --         lspconfig.rustowlsp.setup({
+            --             capabilities = { offsetEncoding = "utf-8" },
+            --         })
+            --     end,
+            -- },
+
         },
     },
-
     {
         'saghen/blink.cmp',
         dependencies = 'rafamadriz/friendly-snippets',
-        version = 'v0.*',
+        version = 'v1.*',
         -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
         -- build = 'cargo build --release',
 
