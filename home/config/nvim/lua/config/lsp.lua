@@ -36,7 +36,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-
         local opts = { buffer = event.buf, remap = false }
         nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
         nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -204,13 +203,19 @@ local _border = "rounded"
 
 vim.diagnostic.config({
     virtual_text = true,
-    underline = true,
+    underline = {
+        severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN
+        }
+    },
+    -- underline = false,
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = '✘',
-            [vim.diagnostic.severity.WARN] = '▲',
-            [vim.diagnostic.severity.INFO] = '⚑',
-            [vim.diagnostic.severity.HINT] = '»',
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
         }
     },
     update_in_insert = true,
