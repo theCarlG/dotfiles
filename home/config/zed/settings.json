@@ -1,0 +1,126 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "telemetry": {
+        "metrics": false,
+        "diagnostics": false
+    },
+
+    "inlay_hints": {
+        "enabled": true
+    },
+
+    "journal": {
+        "hour_format": "hour24"
+    },
+
+    "ui_font_size": 14,
+    "buffer_font_family": "Monolisa Nerd Font",
+    "terminal": {
+        "dock": "right",
+        "font_family": "Monolisa Nerd Font",
+        "font_size": 10,
+        "default_width": 900,
+        "env": {
+            "EDITOR": "zed --wait"
+        }
+    },
+    "buffer_font_size": 10,
+    "buffer_font_weight": 300,
+    "theme": {
+        "mode": "system",
+        "light": "Gruvbox Light Hard",
+        "dark": "Gruvbox Dark Hard"
+    },
+    // Remove the < > buttons from the tab bar
+    "tab_bar": {
+        "show": true,
+        "show_nav_history_buttons": false
+    },
+
+    // Show file type icons in the tab bar. Also color them according to the
+    // git status.
+    "tabs": {
+        "file_icons": true,
+        "git_status": true,
+        "show_diagnostics": "errors"
+    },
+
+    // Move all panel to the right
+    "project_panel": {
+        "button": true,
+        "dock": "left",
+        "git_status": true,
+        "indent_size": 16
+    },
+    "outline_panel": {
+        "dock": "right"
+    },
+    "collaboration_panel": {
+        "dock": "left"
+    },
+    // Move some unnecessary panels to the left
+    "notification_panel": {
+        "dock": "left"
+    },
+    "chat_panel": {
+        "dock": "left"
+    },
+
+    // File syntax highlighting
+    "file_types": {
+        "Dockerfile": ["Dockerfile", "Dockerfile.*"],
+        "JSON": ["json", "jsonc", "*.code-snippets"]
+    },
+
+    // File scan exclusions, hide on the file explorer and search
+    "file_scan_exclusions": [
+        "**/.git",
+        "**/.svn",
+        "**/.hg",
+        "**/CVS",
+        "**/.DS_Store",
+        "**/Thumbs.db",
+        "**/.classpath",
+        "**/.settings",
+        // above is default from Zed
+        "**/out",
+        "**/dist",
+        "**/.husky",
+        "**/.turbo",
+        "**/.vscode-test",
+        "**/.vscode",
+        "**/.next",
+        "**/.storybook",
+        "**/.tap",
+        "**/.nyc_output",
+        "**/report",
+        "**/node_modules"
+    ],
+
+    // Set a preferred line lenth, showing a vertical gutter bar
+    "preferred_line_length": 160,
+
+    // Set global tab size to 4, you could also make this language-specific but 4
+    // spaces works for me
+    "tab_size": 4,
+
+    // Enable Vim mode. You probably found this already if you care.
+    "vim_mode": true,
+
+    // Use relative line numbers.
+    "relative_line_numbers": true,
+
+    // Allow f and t motions to extend across multiple lines.
+    "use_multiline_find": true,
+
+    // Scroll the whole view if your cursor is less than 20 horizontal lines
+    // away from either part of your file viewport.
+    "vertical_scroll_margin": 20
+}

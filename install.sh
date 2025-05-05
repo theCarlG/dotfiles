@@ -145,6 +145,7 @@ config/nushell
 config/starship.toml
 config/topgrade.toml
 config/wezterm
+config/zed
 gitconfig
 psqlrc
 zshrc
