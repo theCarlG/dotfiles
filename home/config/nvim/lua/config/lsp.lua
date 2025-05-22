@@ -69,6 +69,7 @@ require('mason-lspconfig').setup({
         'erlangls',
         'clangd',
         'lua_ls',
+        'taplo',
     },
     handlers = {
         function(server_name)
@@ -77,6 +78,11 @@ require('mason-lspconfig').setup({
 
         erlangls = function()
             require('lspconfig').erlangls.setup({
+            })
+        end,
+
+        taplo = function()
+            require('lspconfig').taplo.setup({
             })
         end,
 

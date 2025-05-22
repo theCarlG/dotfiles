@@ -84,3 +84,17 @@ au({ 'BufNewFile', 'BufRead' }, {
         vim.bo.filetype = 'erlang'
     end,
 })
+
+au({ 'BufNewFile', 'BufRead' }, {
+    '*.app.src',
+    function()
+        vim.bo.filetype = 'erlang'
+    end,
+})
+
+au('FileType', {
+    'yaml',
+    function()
+        vim.opt_local.formatprg = "yamlfmt /dev/stdin"
+    end,
+})
