@@ -132,6 +132,7 @@ cargo-update,cargo-install-update
 topgrade,topgrade
 cargo-sweep,cargo-sweep
 cargo-cranky,cargo-cranky
+cargo-info,cargo-info
 EOL
 
 echo ""
