@@ -121,7 +121,7 @@ source $ZSH/oh-my-zsh.sh
     alias lt='eza --tree --level=2 --sort=type'                                        # tree
 }
 
-[[ $commands[ripgrep] ]] && {
+[[ $commands[rg] ]] && {
     alias grep='rg'
 }
 

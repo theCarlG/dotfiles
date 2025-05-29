@@ -19,7 +19,7 @@
     "journal": {
         "hour_format": "hour24"
     },
-
+    "icon_theme": "Catppuccin Latte",
     "ui_font_size": 16,
     "terminal": {
         "dock": "right",
