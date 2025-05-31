@@ -1,28 +1,51 @@
 [pull]
+    default = current
     rebase = true
 [merge]
     ff = false
     conflictstyle = diff3
     tool = difft
+[log]
+    abbrevCommit = true
+    graphColors = blue,yellow,cyan,magenta,green,red
+[color "decorate"]
+    HEAD = red
+    branch = blue
+    tag = yellow
+    remoteBranch = magenta
+[color "branch"]
+    current = magenta
+    local = default
+    remote = yellow
+    upstream = green
+    plain = blue
+[branch]
+    sort = -committerdate
+[tag]
+    sort = -taggerdate
 [diff]
     tool = difftastic
+    context = 3
+    rename = copies
+    interHunkContext = 10
 [difftool]
     prompt = false
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
 [pager]
     difftool = true
+    branch = false
+    tag = false
 [rebase]
     stat = true
     updateRefs = true
+    missingCommitsCheck = warn
 [push]
-    default = tracking
+    default = current
+    followTags = true
 	autoSetupRemote = true
 [alias]
     dft = difftool
-    ci=commit
-    st=status -s
-    co=checkout
     grep=grep -Ii --color
     find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
     gone = ! git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
@@ -31,6 +54,13 @@
 [core]
     editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
     autocrlf = false
+    compression = 9
+    whitespace = error
+    preloadindex = true
+[advice]
+    addEmptyPathspec = false
+    addNonFastForward = false
+    statusHints = false
 [init]
 	defaultBranch = main
 [filter "lfs"]
@@ -38,5 +68,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+[url "git@github.com:"]
+    insteadOf = "gh:"
 [include]
-path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
