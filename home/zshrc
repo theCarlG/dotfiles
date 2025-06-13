@@ -74,6 +74,12 @@ test -d $HOME/.cargo && {
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
     }
+
+    [[ $commands[sccache] ]] && {
+        SCCACHE_PATH=$(which sccache)
+        export SCCACHE_IGNORE_SERVER_IO_ERROR=1
+        export RUSTC_WRAPPER=$SCCACHE_PATH
+    }
 }
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
