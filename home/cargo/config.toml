@@ -1,2 +1,10 @@
 [unstable]
 gc = true
+
+[build]
+jobs = 16                # Set to your CPU core count
+pipelining = true        # Enables build pipelining
+
+[profile.dev]
+incremental = true       # Enable incremental compilation
+codegen-units = 16       # Enables parallel code generation
