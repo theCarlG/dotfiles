@@ -70,9 +70,9 @@ test -d $HOME/.cargo && {
     [[ $commands[mold] ]] && {
         MOLD_PATH=$(which mold)
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
-        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH -Clink-arg=-Wl,--no-rosegment"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
-        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH -Clink-arg=-Wl,--no-rosegment"
     }
 
     [[ $commands[sccache] ]] && {
