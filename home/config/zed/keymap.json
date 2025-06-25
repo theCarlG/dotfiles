@@ -31,8 +31,7 @@
 
             "return": "editor::OpenExcerpts",
             // Go to file with `gf`
-            "g f": "editor::OpenExcerpts",
-            "ctrl-n": "editor::SelectNext"
+            "ctrl-n": "editor::SelectNext",
             "g f": "editor::OpenExcerpts",
 
             "tab": "vim::Matching"
