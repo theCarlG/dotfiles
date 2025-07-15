@@ -65,7 +65,6 @@ require('mason-lspconfig').setup({
     -- with the ones you want to install
     ensure_installed = {
         'rust_analyzer',
-        'erlangls',
         'clangd',
         'lua_ls',
         'taplo',
