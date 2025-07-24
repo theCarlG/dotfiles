@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
         local opts = { buffer = event.buf, remap = false }
         nnoremap('gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-        nnoremap('gn', '<cmd>lua vim.diagnostic.jump()<CR>', opts)
+        nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
         nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
         nnoremap('\'', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
         -- nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
