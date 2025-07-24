@@ -6,7 +6,7 @@ au.group('TermGroup', {
     { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" },
 })
 au("InsertEnter", "setlocal nohlsearch")
-au("TextYankPost", 'silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}');
+au("TextYankPost", 'silent! lua vim.hl.on_yank() {higroup="IncSearch", timeout=400}');
 --au("OptionSet", "background")
 
 -- Restore cursor
