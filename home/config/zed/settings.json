@@ -7,9 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+    "disable_ai": true,
     "agent": {
-        "enabled": false,
-        "version": "2"
+        "enabled": false
     },
     "features": {
         "edit_prediction_provider": "none"
@@ -30,19 +30,19 @@
     "journal": {
         "hour_format": "hour24"
     },
-    "icon_theme": "Catppuccin Latte",
-    "ui_font_size": 20,
+    "icon_theme": "Catppuccin Mocha",
+    "ui_font_size": 14,
     "terminal": {
         "dock": "right",
         "font_family": "MonoLisa Nerd Font",
-        "font_size": 14,
+        "font_size": 10,
         "default_width": 1200,
         "env": {
             "EDITOR": "zed --wait"
         }
     },
     "buffer_font_family": "MonoLisa Nerd Font",
-    "buffer_font_size": 14.0,
+    "buffer_font_size": 10.0,
     "buffer_font_weight": 200,
     "theme": {
         "mode": "system",
@@ -127,9 +127,6 @@
 
     // Use relative line numbers.
     "relative_line_numbers": true,
-
-    // Allow f and t motions to extend across multiple lines.
-    "use_multiline_find": true,
 
     // Scroll the whole view if your cursor is less than 20 horizontal lines
     // away from either part of your file viewport.
