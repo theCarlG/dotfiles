@@ -1,5 +1,5 @@
 [misc]
-disable = ["shell", "gcloud"]
+disable = ["shell", "gcloud", "containers"]
 # Don't ask for confirmations
 #assume_yes = true
 
