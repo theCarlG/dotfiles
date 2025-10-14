@@ -161,6 +161,7 @@ require('mason-lspconfig').setup({
                             runBuildScripts = true,
                             loadOutDirsFromCheck = true,
                             allFeatures = true,
+                            features = { "ssr" },
                         },
                         imports = {
                             group = {
