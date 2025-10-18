@@ -69,138 +69,123 @@ require('mason-lspconfig').setup({
         'lua_ls',
         'taplo',
     },
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
+})
 
-        erlangls = function()
-            require('lspconfig').erlangls.setup({
-            })
-        end,
+vim.lsp.config('gopls', {
+    settings = {
 
-        taplo = function()
-            require('lspconfig').taplo.setup({
-            })
-        end,
+        gopls = {
+            semanticTokens = true,
+            gofumpt = true,
+            usePlaceholders = true,
+            staticcheck = true,
+            analyses = {
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+            },
+            codelenses = {
+                tidy = true
+            },
+        },
+    },
+    directoryFilters = { "-bazel-bin", "-bazel-src", "-bazel-out", "-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs" },
+})
 
-        gopls = function()
-            require('lspconfig').gopls.setup({
-                settings = {
-                    gopls = {
-                        semanticTokens = true,
-                        gofumpt = true,
-                        usePlaceholders = true,
-                        staticcheck = true,
-                        analyses = {
-                            nilness = true,
-                            unusedparams = true,
-                            unusedwrite = true,
-                        },
-                        codelenses = {
-                            tidy = true
-                        },
-                    },
+vim.lsp.config('lua_ls', {
+    -- Server-specific settings. See `:help lsp-quickstart`
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using
+                -- (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {
+                    'vim',
+                    'require'
                 },
-                directoryFilters = { "-bazel-bin", "-bazel-src", "-bazel-out", "-**/node_modules", "-**/bazel-out", "-**/bazel-bin", "-**/bazel-src", "-**/bazel-testlogs" },
-            })
-        end,
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+})
 
-        lua_ls = function()
-            require('lspconfig').lua_ls.setup({
-                settings = {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using
-                            -- (most likely LuaJIT in the case of Neovim)
-                            version = 'LuaJIT',
-                        },
-                        diagnostics = {
-                            -- Get the language server to recognize the `vim` global
-                            globals = {
-                                'vim',
-                                'require'
-                            },
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                        -- Do not send telemetry data containing a randomized but unique identifier
-                        telemetry = {
-                            enable = false,
-                        },
-                    },
-                },
-            })
-        end,
 
-        clangd = function()
-            require('lspconfig').clangd.setup({
-                settings = {
-                    clangd = {
-                        cmd = {
-                            "clangd",
-                            "--background-index",
-                            "--suggest-missing-includes",
-                        },
-                        filetypes = { "c", "cpp", "objc", "objcpp" },
-                    },
-                },
-            })
-        end,
+vim.lsp.config('clangd', {
+    -- Server-specific settings. See `:help lsp-quickstart`
+    settings = {
+        clangd = {
+            cmd = {
+                "clangd",
+                "--background-index",
+                "--suggest-missing-includes",
+            },
+            filetypes = { "c", "cpp", "objc", "objcpp" },
+        },
+    },
+})
 
-        rust_analyzer = function()
-            require('lspconfig').rust_analyzer.setup({
-                settings = {
-                    ['rust-analyzer'] = {
-                        add_return_type = {
-                            enable = true
-                        },
-                        cargo = {
-                            runBuildScripts = true,
-                            loadOutDirsFromCheck = true,
-                            allFeatures = true,
-                            features = { "ssr" },
-                        },
-                        imports = {
-                            group = {
-                                enable = true,
-                            },
-                            granularity = {
-                                group = "module",
-                            },
-                            prefix = "self",
-                        },
-                        completion = {
-                            fullFunctionSignatures = {
-                                enable = true,
-                            },
-                        },
-                        procMacro = {
-                            enable = true,
-                            ignored = {
-                                ["leptos_macro"] = {
-                                    -- optional: --
-                                    -- "component",
-                                    -- "server",
-                                },
-                                ["async-trait"] = { "async_trait" },
-                                ["napi-derive"] = { "napi" },
-                                ["async-recursion"] = { "async_recursion" },
-                            },
-                        },
-                        checkOnSave = true,
-                        check = {
-                            -- features = "all",
-                            ignore = { "inactive-code", "unlinked-file" },
-                            command = "clippy",
-                        },
-                    },
+vim.lsp.config('rust_analyzer', {
+    -- Server-specific settings. See `:help lsp-quickstart`
+    settings = {
+        ['rust-analyzer'] = {
+
+            add_return_type = {
+                enable = true
+            },
+            cargo = {
+                runBuildScripts = true,
+                loadOutDirsFromCheck = true,
+                allFeatures = true,
+                features = { "ssr" },
+            },
+            imports = {
+                group = {
+                    enable = true,
                 },
-            })
-        end
-    }
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            completion = {
+                fullFunctionSignatures = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true,
+                ignored = {
+                    ["leptos_macro"] = {
+                        -- optional: --
+                        -- "component",
+                        -- "server",
+                    },
+                    ["async-trait"] = { "async_trait" },
+                    ["napi-derive"] = { "napi" },
+                    ["async-recursion"] = { "async_recursion" },
+                },
+            },
+            checkOnSave = true,
+            check = {
+                -- features = "all",
+                ignore = { "inactive-code", "unlinked-file" },
+                command = "clippy",
+                extraArgs = {},
+            },
+
+        },
+    },
 })
 
 local _border = "rounded"
