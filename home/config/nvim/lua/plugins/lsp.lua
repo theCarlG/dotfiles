@@ -2,11 +2,18 @@ local border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 return {
     {
-        'neovim/nvim-lspconfig',
-
+        "mason-org/mason-lspconfig.nvim",
+        opts = {
+            ensure_installed = {
+                'rust_analyzer',
+                'clangd',
+                'lua_ls',
+                'taplo',
+            },
+        },
         dependencies = {
             {
-                'williamboman/mason.nvim',
+                'mason-org/mason.nvim',
                 lazy = false,
                 config = function()
                     require("mason").setup({
@@ -19,25 +26,8 @@ return {
                         }
                     })
                 end,
-                dependencies = {
-                    { 'williamboman/mason-lspconfig.nvim' },
-                },
             },
-
-            -- {
-            --     'cordx56/rustowl',
-            --     version = '*', -- Latest stable version
-            --     build = 'cd rustowl && cargo install --path . --locked',
-            --     lazy = false,  -- This plugin is already lazy
-            --     opts = {},
-            --     config = function()
-            --         local lspconfig = require("lspconfig")
-            --         lspconfig.rustowlsp.setup({
-            --             capabilities = { offsetEncoding = "utf-8" },
-            --         })
-            --     end,
-            -- },
-
+            "neovim/nvim-lspconfig",
         },
     },
     {

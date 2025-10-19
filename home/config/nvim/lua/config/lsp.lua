@@ -40,35 +40,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
         nnoremap('gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
         nnoremap('ä', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
         nnoremap('\'', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-        -- nnoremap('å', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
-        -- nnoremap('[', '<cmd>lua vim.diagnostic.open_float(nil, { focusable = false })<CR>', opts)
         nnoremap("å", diagnostics, opts)
         nnoremap("[", diagnostics, opts)
 
-        --nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
         nnoremap('gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
         nnoremap('gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        -- nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-        --nnoremap('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
         nnoremap('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-        -- nnoremap('grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-        -- nnoremap('grr', '<cmd>Telescope lsp_references<CR>', opts)
         nnoremap('gs', '<cmd>lua require"telescope.builtin".lsp_document_symbols{ shorten_path = true }<CR>', opts)
 
         nnoremap("<leader>h", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
     end
-})
-
-require('mason-lspconfig').setup({
-    automatic_installation = false,
-    -- Replace the language servers listed here
-    -- with the ones you want to install
-    ensure_installed = {
-        'rust_analyzer',
-        'clangd',
-        'lua_ls',
-        'taplo',
-    },
 })
 
 vim.lsp.config('gopls', {
