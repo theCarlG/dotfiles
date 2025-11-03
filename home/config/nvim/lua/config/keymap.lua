@@ -66,7 +66,7 @@ nmap('<M-j>', '<cmd>cnext<CR>')
 nmap('<M-k>', '<cmd>cprev<CR>')
 
 -- Term
-nmap('<leader>st', function()
+nmap('<leader>t', function()
     vim.cmd.vnew()
     vim.cmd.term()
     vim.cmd.wincmd("J")
