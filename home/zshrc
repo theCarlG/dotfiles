@@ -74,6 +74,13 @@ test -d $HOME/.cargo && {
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-C link-arg=-fuse-ld=$MOLD_PATH -Clink-arg=-Wl,--no-rosegment"
     }
+    [[ $commands[wild] ]] && {
+        WILD_PATH=$(which wild)
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-Clink-args=--ld-path=$WILD_PATH"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-Clink-args=--ld-path=$WILD_PATHt"
+    }
 
     [[ $commands[sccache] ]] && {
         SCCACHE_PATH=$(which sccache)
