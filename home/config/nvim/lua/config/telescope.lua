@@ -9,7 +9,7 @@ telescope.setup {
             "build/.*",
             "target/.*",
             "[.]clangd/.*",
-            "[.].*/.*",
+            -- "[.].*/.*",
         },
         prompt_prefix = "   ",
         selection_caret = "  ",

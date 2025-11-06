@@ -120,7 +120,6 @@ vim.lsp.config('rust_analyzer', {
     -- Server-specific settings. See `:help lsp-quickstart`
     settings = {
         ['rust-analyzer'] = {
-
             add_return_type = {
                 enable = true
             },
@@ -160,7 +159,7 @@ vim.lsp.config('rust_analyzer', {
             checkOnSave = true,
             check = {
                 -- features = "all",
-                ignore = { "inactive-code", "unlinked-file" },
+                ignore = { "unlinked-file" },
                 command = "clippy",
                 extraArgs = {},
             },
