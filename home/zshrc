@@ -79,7 +79,7 @@ test -d $HOME/.cargo && {
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-Clink-args=--ld-path=$WILD_PATH"
         export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER="clang"
-        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-Clink-args=--ld-path=$WILD_PATHt"
+        export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="-Clink-args=--ld-path=$WILD_PATH"
     }
 
     [[ $commands[sccache] ]] && {
