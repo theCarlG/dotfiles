@@ -1,10 +1,5 @@
-base16-shell/
 configstore/
-i3
-i3status
 systemd
 htop/
 pulse/
-termite
-yarn/
 tmux/plugins

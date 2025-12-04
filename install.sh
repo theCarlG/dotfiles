@@ -139,6 +139,7 @@ echo ""
 
 COMMON=(
 config/nvim
+config/fish
 config/tmux
 config/alacritty
 config/mutt
