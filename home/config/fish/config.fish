@@ -88,14 +88,14 @@ complete -c tm -f -a "(__fish_tm_sessions)"
 
 # eza (modern ls replacement)
 if command -q eza
-    abbr -a ls 'eza --sort=type'
-    abbr -a l 'eza -lbG --git --sort=type'
-    abbr -a ll 'eza -lbF --git --sort=type'
-    abbr -a llm 'eza -lbF --git --sort=modified'
-    abbr -a la 'eza -lbhHigUmuSa --time-style=long-iso --git --color-scale --sort=type'
-    abbr -a lx 'eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --sort=type'
-    abbr -a lS 'eza -1 --sort=type'
-    abbr -a lt 'eza --tree --level=2 --sort=type'
+    alias ls 'eza --sort=type'
+    alias l 'eza -lbG --git --sort=type'
+    alias ll 'eza -lbF --git --sort=type'
+    alias llm 'eza -lbF --git --sort=modified'
+    alias la 'eza -lbhHigUmuSa --time-style=long-iso --git --color-scale --sort=type'
+    alias lx 'eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --sort=type'
+    alias lS 'eza -1 --sort=type'
+    alias lt 'eza --tree --level=2 --sort=type'
 end
 
 # ripgrep

@@ -60,14 +60,14 @@ function link_file {
 
 echo -e "$B* Looking for required tools$C_NC"
 
-echo -n "  oh-my-zsh: "
-test ! -d  $HOME/.oh-my-zsh && {
-    echo -e "${C_Y}not installed$C_NC"
-    curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-    test -L $HOME/.zshrc || rm $HOME/.zshrc
-} || {
-    echo -e "${C_G}installed$C_NC"
-}
+# echo -n "  oh-my-zsh: "
+# test ! -d  $HOME/.oh-my-zsh && {
+#     echo -e "${C_Y}not installed$C_NC"
+#     curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+#     test -L $HOME/.zshrc || rm $HOME/.zshrc
+# } || {
+#     echo -e "${C_G}installed$C_NC"
+# }
 
 echo -n "  rustup: "
 test ! command -v rustup &> /dev/null && {
@@ -150,7 +150,7 @@ config/wezterm
 config/zed
 gitconfig
 psqlrc
-zshrc
+# zshrc
 ripgreprc
 cargo/config.toml
 )
