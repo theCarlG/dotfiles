@@ -27,7 +27,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function()
         local mode = vim.api.nvim_get_mode().mode
         local filetype = vim.bo.filetype
-        if vim.bo.modified == true and mode == 'n' and filetype ~= "oil" and filetype ~= "cpp" and filetype ~= "c" then
+        -- if vim.bo.modified == true and mode == 'n' and filetype ~= "oil" and filetype ~= "cpp" and filetype ~= "c" then
+        if vim.bo.modified == true and mode == 'n' and filetype ~= "oil" and filetype ~= "cpp"  then
             vim.cmd('lua vim.lsp.buf.format()')
         end
     end
@@ -108,6 +109,7 @@ vim.lsp.config('clangd', {
         clangd = {
             cmd = {
                 "clangd",
+                "-std=c2x",
                 "--background-index",
                 "--suggest-missing-includes",
             },
