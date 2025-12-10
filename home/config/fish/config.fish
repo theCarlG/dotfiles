@@ -127,4 +127,4 @@ end
 # -----------------------------------------------------------------------------
 
 # Source local config if it exists (pre)
-test -f $HOME/.config/fish/config.local.fish; and source $HOME/.config/fish/local.fish
+test -f $HOME/.config/fish/local.fish; and source $HOME/.config/fish/local.fish
