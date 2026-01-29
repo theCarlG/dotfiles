@@ -40,6 +40,7 @@
     stat = true
     updateRefs = true
     missingCommitsCheck = warn
+    instructionFormat = %s%nexec GIT_COMMITTER_DATE=\"%cI\" GIT_COMMITTER_NAME=\"%cN\" GIT_COMMITTER_EMAIL=\"%cE\" git commit --amend --no-edit%n
 [push]
     default = current
     followTags = true
@@ -49,6 +50,7 @@
     grep=grep -Ii --color
     find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
     gone = ! git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
+    rb = rebase --interactive
 [color]
     ui = true
 [core]
