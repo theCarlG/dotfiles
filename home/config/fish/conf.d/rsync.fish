@@ -1,4 +1,4 @@
-# Fish rsync abbreviations (oh-my-zsh rsync plugin style)
+# Fish rsync aliastions (oh-my-zsh=rsync plugin style)
 # Save to: ~/.config/fish/conf.d/rsync.fish
 
 if not command -q rsync
@@ -10,58 +10,58 @@ end
 # -----------------------------------------------------------------------------
 
 # Default rsync with progress and human-readable
-abbr -a rsync-copy 'rsync -avh --progress'
-abbr -a rsync-move 'rsync -avh --progress --remove-source-files'
-abbr -a rsync-update 'rsync -avhu --progress'
-abbr -a rsync-sync 'rsync -avhu --delete --progress'
+alias rsync-copy='rsync -avh --progress'
+alias rsync-move='rsync -avh --progress --remove-source-files'
+alias rsync-update='rsync -avhu --progress'
+alias rsync-sync='rsync -avhu --delete --progress'
 
 # Short versions
-abbr -a rcp 'rsync -avh --progress'
-abbr -a rmv 'rsync -avh --progress --remove-source-files'
-abbr -a rup 'rsync -avhu --progress'
-abbr -a rsy 'rsync -avhu --delete --progress'
+alias rcp='rsync -avh --progress'
+alias rmv='rsync -avh --progress --remove-source-files'
+alias rup='rsync -avhu --progress'
+alias rsy='rsync -avhu --delete --progress'
 
 # -----------------------------------------------------------------------------
 # Extended aliases
 # -----------------------------------------------------------------------------
 
 # Dry run versions (preview what would happen)
-abbr -a rsync-copy-dry 'rsync -avhn --progress'
-abbr -a rsync-move-dry 'rsync -avhn --progress --remove-source-files'
-abbr -a rsync-update-dry 'rsync -avhun --progress'
-abbr -a rsync-sync-dry 'rsync -avhun --delete --progress'
+alias rsync-copy-dry='rsync -avhn --progress'
+alias rsync-move-dry='rsync -avhn --progress --remove-source-files'
+alias rsync-update-dry='rsync -avhun --progress'
+alias rsync-sync-dry='rsync -avhun --delete --progress'
 
-abbr -a rcpd 'rsync -avhn --progress'
-abbr -a rmvd 'rsync -avhn --progress --remove-source-files'
-abbr -a rupd 'rsync -avhun --progress'
-abbr -a rsyd 'rsync -avhun --delete --progress'
+alias rcpd='rsync -avhn --progress'
+alias rmvd='rsync -avhn --progress --remove-source-files'
+alias rupd='rsync -avhun --progress'
+alias rsyd='rsync -avhun --delete --progress'
 
 # With compression (good for remote transfers)
-abbr -a rsync-copy-z 'rsync -avhz --progress'
-abbr -a rsync-move-z 'rsync -avhz --progress --remove-source-files'
-abbr -a rsync-update-z 'rsync -avhuz --progress'
-abbr -a rsync-sync-z 'rsync -avhuz --delete --progress'
+alias rsync-copy-z='rsync -avhz --progress'
+alias rsync-move-z='rsync -avhz --progress --remove-source-files'
+alias rsync-update-z='rsync -avhuz --progress'
+alias rsync-sync-z='rsync -avhuz --delete --progress'
 
-abbr -a rcpz 'rsync -avhz --progress'
-abbr -a rmvz 'rsync -avhz --progress --remove-source-files'
-abbr -a rupz 'rsync -avhuz --progress'
-abbr -a rsyz 'rsync -avhuz --delete --progress'
+alias rcpz='rsync -avhz --progress'
+alias rmvz='rsync -avhz --progress --remove-source-files'
+alias rupz='rsync -avhuz --progress'
+alias rsyz='rsync -avhuz --delete --progress'
 
 # Partial transfers (resume interrupted transfers)
-abbr -a rsync-resume 'rsync -avhP'
-abbr -a rrs 'rsync -avhP'
+alias rsync-resume='rsync -avhP'
+alias rrs='rsync -avhP'
 
 # With checksum verification (slower but safer)
-abbr -a rsync-checksum 'rsync -avhc --progress'
-abbr -a rck 'rsync -avhc --progress'
+alias rsync-checksum='rsync -avhc --progress'
+alias rck='rsync -avhc --progress'
 
 # Backup with timestamp suffix
-abbr -a rsync-backup 'rsync -avhb --backup-dir=backup_$(date +%Y%m%d_%H%M%S) --progress'
-abbr -a rbk 'rsync -avhb --progress'
+alias rsync-backup='rsync -avhb --backup-dir=backup_$(date +%Y%m%d_%H%M%S) --progress'
+alias rbk='rsync -avhb --progress'
 
 # Exclude common junk
-abbr -a rsync-clean 'rsync -avh --progress --exclude="*.tmp" --exclude="*.log" --exclude=".DS_Store" --exclude="Thumbs.db" --exclude=".git" --exclude="node_modules" --exclude="target" --exclude="__pycache__"'
-abbr -a rcl 'rsync -avh --progress --exclude="*.tmp" --exclude="*.log" --exclude=".DS_Store" --exclude="Thumbs.db" --exclude=".git" --exclude="node_modules" --exclude="target" --exclude="__pycache__"'
+alias rsync-clean='rsync -avh --progress --exclude="*.tmp" --exclude="*.log" --exclude=".DS_Store" --exclude="Thumbs.db" --exclude=".git" --exclude="node_modules" --exclude="target" --exclude="__pycache__"'
+alias rcl='rsync -avh --progress --exclude="*.tmp" --exclude="*.log" --exclude=".DS_Store" --exclude="Thumbs.db" --exclude=".git" --exclude="node_modules" --exclude="target" --exclude="__pycache__"'
 
 # -----------------------------------------------------------------------------
 # Functions

@@ -1,4 +1,4 @@
-# Fish kubectl abbreviations (oh-my-zsh kubectl plugin style)
+# Fish kubectl aliastions (oh-my-zsh=kubectl plugin style)
 # Save to: ~/.config/fish/conf.d/kubectl.fish
 
 if not command -q kubectl
@@ -9,288 +9,288 @@ end
 # Core kubectl
 # -----------------------------------------------------------------------------
 
-abbr -a k kubectl
+alias k=kubectl
 
 # Apply/Create/Delete
-abbr -a ka 'kubectl apply'
-abbr -a kaf 'kubectl apply -f'
-abbr -a kak 'kubectl apply -k'
-abbr -a kcr 'kubectl create'
-abbr -a kcrf 'kubectl create -f'
-abbr -a kdel 'kubectl delete'
-abbr -a kdelf 'kubectl delete -f'
-abbr -a kdelk 'kubectl delete -k'
+alias ka='kubectl apply'
+alias kaf='kubectl apply -f'
+alias kak='kubectl apply -k'
+alias kcr='kubectl create'
+alias kcrf='kubectl create -f'
+alias kdel='kubectl delete'
+alias kdelf='kubectl delete -f'
+alias kdelk='kubectl delete -k'
 
 # Get
-abbr -a kg 'kubectl get'
-abbr -a kga 'kubectl get all'
-abbr -a kgaa 'kubectl get all --all-namespaces'
-abbr -a kgw 'kubectl get --watch'
-abbr -a kgwide 'kubectl get -o wide'
+alias kg='kubectl get'
+alias kga='kubectl get all'
+alias kgaa='kubectl get all --all-namespaces'
+alias kgw='kubectl get --watch'
+alias kgwide='kubectl get -o wide'
 
 # Get Pods
-abbr -a kgp 'kubectl get pods'
-abbr -a kgpa 'kubectl get pods --all-namespaces'
-abbr -a kgpw 'kubectl get pods --watch'
-abbr -a kgpwide 'kubectl get pods -o wide'
-abbr -a kgpl 'kubectl get pods -l'
-abbr -a kgpn 'kubectl get pods -n'
+alias kgp='kubectl get pods'
+alias kgpa='kubectl get pods --all-namespaces'
+alias kgpw='kubectl get pods --watch'
+alias kgpwide='kubectl get pods -o wide'
+alias kgpl='kubectl get pods -l'
+alias kgpn='kubectl get pods -n'
 
 # Get Deployments
-abbr -a kgd 'kubectl get deployments'
-abbr -a kgda 'kubectl get deployments --all-namespaces'
-abbr -a kgdw 'kubectl get deployments --watch'
-abbr -a kgdwide 'kubectl get deployments -o wide'
+alias kgd='kubectl get deployments'
+alias kgda='kubectl get deployments --all-namespaces'
+alias kgdw='kubectl get deployments --watch'
+alias kgdwide='kubectl get deployments -o wide'
 
 # Get Services
-abbr -a kgs 'kubectl get services'
-abbr -a kgsa 'kubectl get services --all-namespaces'
-abbr -a kgsw 'kubectl get services --watch'
-abbr -a kgswide 'kubectl get services -o wide'
+alias kgs='kubectl get services'
+alias kgsa='kubectl get services --all-namespaces'
+alias kgsw='kubectl get services --watch'
+alias kgswide='kubectl get services -o wide'
 
 # Get Ingress
-abbr -a kgi 'kubectl get ingress'
-abbr -a kgia 'kubectl get ingress --all-namespaces'
+alias kgi='kubectl get ingress'
+alias kgia='kubectl get ingress --all-namespaces'
 
 # Get ConfigMaps/Secrets
-abbr -a kgcm 'kubectl get configmaps'
-abbr -a kgsec 'kubectl get secrets'
+alias kgcm='kubectl get configmaps'
+alias kgsec='kubectl get secrets'
 
 # Get Namespaces
-abbr -a kgns 'kubectl get namespaces'
+alias kgns='kubectl get namespaces'
 
 # Get Nodes
-abbr -a kgno 'kubectl get nodes'
-abbr -a kgnowide 'kubectl get nodes -o wide'
+alias kgno='kubectl get nodes'
+alias kgnowide='kubectl get nodes -o wide'
 
 # Get PV/PVC
-abbr -a kgpv 'kubectl get persistentvolumes'
-abbr -a kgpvc 'kubectl get persistentvolumeclaims'
-abbr -a kgpvca 'kubectl get persistentvolumeclaims --all-namespaces'
+alias kgpv='kubectl get persistentvolumes'
+alias kgpvc='kubectl get persistentvolumeclaims'
+alias kgpvca='kubectl get persistentvolumeclaims --all-namespaces'
 
 # Get StatefulSets
-abbr -a kgss 'kubectl get statefulsets'
-abbr -a kgssa 'kubectl get statefulsets --all-namespaces'
-abbr -a kgssw 'kubectl get statefulsets --watch'
-abbr -a kgsswide 'kubectl get statefulsets -o wide'
+alias kgss='kubectl get statefulsets'
+alias kgssa='kubectl get statefulsets --all-namespaces'
+alias kgssw='kubectl get statefulsets --watch'
+alias kgsswide='kubectl get statefulsets -o wide'
 
 # Get DaemonSets
-abbr -a kgds 'kubectl get daemonsets'
-abbr -a kgdsa 'kubectl get daemonsets --all-namespaces'
+alias kgds='kubectl get daemonsets'
+alias kgdsa='kubectl get daemonsets --all-namespaces'
 
 # Get ReplicaSets
-abbr -a kgrs 'kubectl get replicasets'
-abbr -a kgrsa 'kubectl get replicasets --all-namespaces'
+alias kgrs='kubectl get replicasets'
+alias kgrsa='kubectl get replicasets --all-namespaces'
 
 # Get Jobs/CronJobs
-abbr -a kgj 'kubectl get jobs'
-abbr -a kgja 'kubectl get jobs --all-namespaces'
-abbr -a kgcj 'kubectl get cronjobs'
-abbr -a kgcja 'kubectl get cronjobs --all-namespaces'
+alias kgj='kubectl get jobs'
+alias kgja='kubectl get jobs --all-namespaces'
+alias kgcj='kubectl get cronjobs'
+alias kgcja='kubectl get cronjobs --all-namespaces'
 
 # Get Events
-abbr -a kgev 'kubectl get events'
-abbr -a kgeva 'kubectl get events --all-namespaces'
-abbr -a kgevw 'kubectl get events --watch'
+alias kgev='kubectl get events'
+alias kgeva='kubectl get events --all-namespaces'
+alias kgevw='kubectl get events --watch'
 
 # Get ServiceAccounts
-abbr -a kgsar 'kubectl get serviceaccounts'
+alias kgsar='kubectl get serviceaccounts'
 
 # Get NetworkPolicies
-abbr -a kgnp 'kubectl get networkpolicies'
+alias kgnp='kubectl get networkpolicies'
 
 # Get Endpoints
-abbr -a kgep 'kubectl get endpoints'
+alias kgep='kubectl get endpoints'
 
 # -----------------------------------------------------------------------------
 # Describe
 # -----------------------------------------------------------------------------
 
-abbr -a kd 'kubectl describe'
-abbr -a kdp 'kubectl describe pod'
-abbr -a kdd 'kubectl describe deployment'
-abbr -a kds 'kubectl describe service'
-abbr -a kdi 'kubectl describe ingress'
-abbr -a kdcm 'kubectl describe configmap'
-abbr -a kdsec 'kubectl describe secret'
-abbr -a kdno 'kubectl describe node'
-abbr -a kdns 'kubectl describe namespace'
-abbr -a kdpv 'kubectl describe persistentvolume'
-abbr -a kdpvc 'kubectl describe persistentvolumeclaim'
-abbr -a kdss 'kubectl describe statefulset'
-abbr -a kdds 'kubectl describe daemonset'
-abbr -a kdrs 'kubectl describe replicaset'
-abbr -a kdj 'kubectl describe job'
-abbr -a kdcj 'kubectl describe cronjob'
+alias kd='kubectl describe'
+alias kdp='kubectl describe pod'
+alias kdd='kubectl describe deployment'
+alias kds='kubectl describe service'
+alias kdi='kubectl describe ingress'
+alias kdcm='kubectl describe configmap'
+alias kdsec='kubectl describe secret'
+alias kdno='kubectl describe node'
+alias kdns='kubectl describe namespace'
+alias kdpv='kubectl describe persistentvolume'
+alias kdpvc='kubectl describe persistentvolumeclaim'
+alias kdss='kubectl describe statefulset'
+alias kdds='kubectl describe daemonset'
+alias kdrs='kubectl describe replicaset'
+alias kdj='kubectl describe job'
+alias kdcj='kubectl describe cronjob'
 
 # -----------------------------------------------------------------------------
 # Edit
 # -----------------------------------------------------------------------------
 
-abbr -a ke 'kubectl edit'
-abbr -a kep 'kubectl edit pod'
-abbr -a ked 'kubectl edit deployment'
-abbr -a kes 'kubectl edit service'
-abbr -a kei 'kubectl edit ingress'
-abbr -a kecm 'kubectl edit configmap'
-abbr -a kesec 'kubectl edit secret'
-abbr -a kess 'kubectl edit statefulset'
-abbr -a keds 'kubectl edit daemonset'
+alias ke='kubectl edit'
+alias kep='kubectl edit pod'
+alias ked='kubectl edit deployment'
+alias kes='kubectl edit service'
+alias kei='kubectl edit ingress'
+alias kecm='kubectl edit configmap'
+alias kesec='kubectl edit secret'
+alias kess='kubectl edit statefulset'
+alias keds='kubectl edit daemonset'
 
 # -----------------------------------------------------------------------------
 # Logs
 # -----------------------------------------------------------------------------
 
-abbr -a kl 'kubectl logs'
-abbr -a klf 'kubectl logs -f'
-abbr -a kl1h 'kubectl logs --since 1h'
-abbr -a kl1m 'kubectl logs --since 1m'
-abbr -a kl1s 'kubectl logs --since 1s'
-abbr -a klp 'kubectl logs -p'
-abbr -a kla 'kubectl logs --all-containers'
-abbr -a klfa 'kubectl logs -f --all-containers'
+alias kl='kubectl logs'
+alias klf='kubectl logs -f'
+alias kl1h='kubectl logs --since 1h'
+alias kl1m='kubectl logs --since 1m'
+alias kl1s='kubectl logs --since 1s'
+alias klp='kubectl logs -p'
+alias kla='kubectl logs --all-containers'
+alias klfa='kubectl logs -f --all-containers'
 
 # -----------------------------------------------------------------------------
 # Exec
 # -----------------------------------------------------------------------------
 
-abbr -a kex 'kubectl exec -it'
-abbr -a kexsh 'kubectl exec -it -- sh'
-abbr -a kexbash 'kubectl exec -it -- bash'
+alias kex='kubectl exec -it'
+alias kexsh='kubectl exec -it -- sh'
+alias kexbash='kubectl exec -it -- bash'
 
 # -----------------------------------------------------------------------------
 # Port Forward
 # -----------------------------------------------------------------------------
 
-abbr -a kpf 'kubectl port-forward'
+alias kpf='kubectl port-forward'
 
 # -----------------------------------------------------------------------------
 # Scale
 # -----------------------------------------------------------------------------
 
-abbr -a ksc 'kubectl scale'
-abbr -a kscd 'kubectl scale deployment'
-abbr -a kscss 'kubectl scale statefulset'
-abbr -a kscrs 'kubectl scale replicaset'
+alias ksc='kubectl scale'
+alias kscd='kubectl scale deployment'
+alias kscss='kubectl scale statefulset'
+alias kscrs='kubectl scale replicaset'
 
 # -----------------------------------------------------------------------------
 # Rollout
 # -----------------------------------------------------------------------------
 
-abbr -a kro 'kubectl rollout'
-abbr -a kros 'kubectl rollout status'
-abbr -a kroh 'kubectl rollout history'
-abbr -a krou 'kubectl rollout undo'
-abbr -a kror 'kubectl rollout restart'
-abbr -a krosd 'kubectl rollout status deployment'
-abbr -a krord 'kubectl rollout restart deployment'
-abbr -a kroud 'kubectl rollout undo deployment'
-abbr -a krohd 'kubectl rollout history deployment'
+alias kro='kubectl rollout'
+alias kros='kubectl rollout status'
+alias kroh='kubectl rollout history'
+alias krou='kubectl rollout undo'
+alias kror='kubectl rollout restart'
+alias krosd='kubectl rollout status deployment'
+alias krord='kubectl rollout restart deployment'
+alias kroud='kubectl rollout undo deployment'
+alias krohd='kubectl rollout history deployment'
 
 # -----------------------------------------------------------------------------
 # Namespace & Context
 # -----------------------------------------------------------------------------
 
-abbr -a kns 'kubectl config set-context --current --namespace'
-abbr -a kcgc 'kubectl config get-contexts'
-abbr -a kcuc 'kubectl config use-context'
-abbr -a kccc 'kubectl config current-context'
-abbr -a kcdc 'kubectl config delete-context'
-abbr -a kcsc 'kubectl config set-context'
-abbr -a kcgcl 'kubectl config get-clusters'
+alias kns='kubectl config set-context --current --namespace'
+alias kcgc='kubectl config get-contexts'
+alias kcuc='kubectl config use-context'
+alias kccc='kubectl config current-context'
+alias kcdc='kubectl config delete-context'
+alias kcsc='kubectl config set-context'
+alias kcgcl='kubectl config get-clusters'
 
 # -----------------------------------------------------------------------------
 # Top (metrics)
 # -----------------------------------------------------------------------------
 
-abbr -a kt 'kubectl top'
-abbr -a ktp 'kubectl top pods'
-abbr -a ktpa 'kubectl top pods --all-namespaces'
-abbr -a ktn 'kubectl top nodes'
-abbr -a ktc 'kubectl top pods --containers'
+alias kt='kubectl top'
+alias ktp='kubectl top pods'
+alias ktpa='kubectl top pods --all-namespaces'
+alias ktn='kubectl top nodes'
+alias ktc='kubectl top pods --containers'
 
 # -----------------------------------------------------------------------------
 # Run
 # -----------------------------------------------------------------------------
 
-abbr -a kr 'kubectl run'
-abbr -a krit 'kubectl run -it --rm --restart=Never --image'
+alias kr='kubectl run'
+alias krit='kubectl run -it --rm --restart=Never --image'
 
 # -----------------------------------------------------------------------------
 # Copy
 # -----------------------------------------------------------------------------
 
-abbr -a kcp 'kubectl cp'
+alias kcp='kubectl cp'
 
 # -----------------------------------------------------------------------------
 # Label & Annotate
 # -----------------------------------------------------------------------------
 
-abbr -a kla 'kubectl label'
-abbr -a kan 'kubectl annotate'
+alias kla='kubectl label'
+alias kan='kubectl annotate'
 
 # -----------------------------------------------------------------------------
 # Patch
 # -----------------------------------------------------------------------------
 
-abbr -a kpatch 'kubectl patch'
+alias kpatch='kubectl patch'
 
 # -----------------------------------------------------------------------------
 # API Resources
 # -----------------------------------------------------------------------------
 
-abbr -a kar 'kubectl api-resources'
-abbr -a kav 'kubectl api-versions'
+alias kar='kubectl api-resources'
+alias kav='kubectl api-versions'
 
 # -----------------------------------------------------------------------------
 # Explain
 # -----------------------------------------------------------------------------
 
-abbr -a kexp 'kubectl explain'
-abbr -a kexpr 'kubectl explain --recursive'
+alias kexp='kubectl explain'
+alias kexpr='kubectl explain --recursive'
 
 # -----------------------------------------------------------------------------
 # Diff & Dry Run
 # -----------------------------------------------------------------------------
 
-abbr -a kdiff 'kubectl diff -f'
-abbr -a kafd 'kubectl apply -f --dry-run=client'
-abbr -a kafds 'kubectl apply -f --dry-run=server'
+alias kdiff='kubectl diff -f'
+alias kafd='kubectl apply -f --dry-run=client'
+alias kafds='kubectl apply -f --dry-run=server'
 
 # -----------------------------------------------------------------------------
 # Debug
 # -----------------------------------------------------------------------------
 
-abbr -a kdbg 'kubectl debug'
+alias kdbg='kubectl debug'
 
 # -----------------------------------------------------------------------------
 # Output formats
 # -----------------------------------------------------------------------------
 
-abbr -a kgy 'kubectl get -o yaml'
-abbr -a kgj 'kubectl get -o json'
-abbr -a kgjq 'kubectl get -o json | jq'
+alias kgy='kubectl get -o yaml'
+alias kgj='kubectl get -o json'
+alias kgjq='kubectl get -o json | jq'
 
 # -----------------------------------------------------------------------------
 # Wait
 # -----------------------------------------------------------------------------
 
-abbr -a kwait 'kubectl wait'
+alias kwait='kubectl wait'
 
 # -----------------------------------------------------------------------------
 # Auth
 # -----------------------------------------------------------------------------
 
-abbr -a kauth 'kubectl auth'
-abbr -a kauthc 'kubectl auth can-i'
+alias kauth='kubectl auth'
+alias kauthc='kubectl auth can-i'
 
 # -----------------------------------------------------------------------------
 # Certificate
 # -----------------------------------------------------------------------------
 
-abbr -a kcert 'kubectl certificate'
-abbr -a kcerta 'kubectl certificate approve'
-abbr -a kcertd 'kubectl certificate deny'
+alias kcert='kubectl certificate'
+alias kcerta='kubectl certificate approve'
+alias kcertd='kubectl certificate deny'
 
 # -----------------------------------------------------------------------------
 # Functions
@@ -458,11 +458,11 @@ complete -c ksecdec -f -a "(__fish_k_secrets)"
 # -----------------------------------------------------------------------------
 
 if command -q kubectx
-    abbr -a kctx kubectx
+    alias kctx=kubectx
 end
 
 if command -q kubens
-    abbr -a knss kubens
+    alias knss=kubens
 end
 
 # -----------------------------------------------------------------------------
@@ -470,9 +470,9 @@ end
 # -----------------------------------------------------------------------------
 
 if command -q stern
-    abbr -a ks stern
-    abbr -a ksa 'stern --all-namespaces'
-    abbr -a kss 'stern --since 1h'
+    alias ks=stern
+    alias ksa='stern --all-namespaces'
+    alias kss='stern --since 1h'
 end
 
 # -----------------------------------------------------------------------------
@@ -480,6 +480,6 @@ end
 # -----------------------------------------------------------------------------
 
 if command -q k9s
-    abbr -a k9 k9s
-    abbr -a k9a 'k9s --all-namespaces'
+    alias k9=k9s
+    alias k9a='k9s --all-namespaces'
 end
